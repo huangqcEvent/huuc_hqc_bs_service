@@ -5,6 +5,7 @@ import com.huuc.context.BaseContext;
 import com.huuc.dto.LoginDTO;
 import com.huuc.dto.RegisterDTO;
 import com.huuc.exception.AccountNotFoundException;
+import com.huuc.exception.BaseException;
 import com.huuc.exception.PasswordErrorException;
 import com.huuc.pojo.User;
 import com.huuc.properties.JwtProperties;
@@ -17,6 +18,7 @@ import com.huuc.vo.LoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 @AllArgsConstructor
+@Slf4j
 @Api(tags = "管理员登录相关接口")
 public class LoginController{
     private final JwtProperties jwtProperties;
@@ -38,6 +41,11 @@ public class LoginController{
         // 检查 user 是否为 null
         if (user == null) {
             throw new AccountNotFoundException("用户不存在,请注册后登录");
+        }
+        log.info("*********************************************************"+ user);
+        // 检查账号状态
+        if(user.getState() == 0){
+            throw new BaseException("账号已失效,失效时间:"+user.getDownTime());
         }
         if(loginDTO.getUsername().equals(user.getUserName()) && MD5Utils.generateMD5(loginDTO.getPassword()).equals(user.getPassWord())){
             Map<String, Object> map = new HashMap<>();
@@ -61,10 +69,16 @@ public class LoginController{
         queryWrapper.eq(User::getUserName,registerDTO.getUsername());
         User user = userService.getOne(queryWrapper);
         if(user!=null){
-            throw new AccountNotFoundException("用户已存在");
+            throw new AccountNotFoundException("用户已存在,请登录");
         }
         if (StringUtils.isNotEmpty(registerDTO.getUsername()) && StringUtils.isNotEmpty(registerDTO.getPassword())){
-            userService.save(User.builder().userName(registerDTO.getUsername()).passWord(MD5Utils.generateMD5(registerDTO.getPassword())).isAdmin(1).head(registerDTO.getHead()).build());
+            userService.save(User.builder()
+                    .userName(registerDTO.getUsername())
+                    .passWord(MD5Utils.generateMD5(registerDTO.getPassword()))
+                    .isAdmin(1)
+                    .head(registerDTO.getHead())
+                    .state(0)
+                    .build());
             return AjaxResult.success("注册成功");
         }
         throw new PasswordErrorException("用户名或密码不能为空");

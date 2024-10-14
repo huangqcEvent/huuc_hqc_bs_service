@@ -1,13 +1,12 @@
 package com.huuc.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 @TableName("user")
@@ -34,4 +33,16 @@ public class User {
     @ApiModelProperty("用户头像路径")
     @TableField("head")
     private String head;
+
+    @ApiModelProperty("注册时间")
+    @TableField(value = "createTime",fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("账号 0正常 1停用")
+    @TableField("state")
+    private int state;
+
+    @ApiModelProperty("账号停用时间")
+    @TableField(value = "downTime",fill = FieldFill.UPDATE)
+    private LocalDateTime downTime;
 }
