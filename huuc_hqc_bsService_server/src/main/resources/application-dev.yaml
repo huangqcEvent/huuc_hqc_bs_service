@@ -1,0 +1,19 @@
+hqc:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: huuc_hqc_bsService
+    username: root
+    password: ${HUUC_DATASOURCE_PASSWORD}
+  jwt:
+    userKey: hqc
+    adminKey: hqcAdmin
+    ttlMillis: 86400000
+    user-token-name:  Authorization
+    admin-token-name: Authorization
+  oss:
+    accessKeyId: ${ALIYUN_OSS_ACCESS_KEY_ID}
+    accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET}
+    bucketName: hqc-bysj
+    endpoint: oss-cn-beijing.aliyuncs.com

@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      driver-class-name: ${hqc.datasource.driver-class-name}
+      url: jdbc:mysql://${hqc.datasource.host}:${hqc.datasource.port}/${hqc.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${hqc.datasource.username}
+      password: ${hqc.datasource.password}
+  banner:
+    location: static/banner.txt
+#配置各级日志输出的级别
+logging:
+  level:
+    com:
+      huuc:
+        mapper: debug
+        service: info
+        controller: info
+knife4j:
+  enable: true
