@@ -45,4 +45,8 @@ public class User {
     @ApiModelProperty("账号停用时间")
     @TableField(value = "downTime",fill = FieldFill.UPDATE)
     private LocalDateTime downTime;
+
+    @ApiModelProperty("账号停用原因")
+    @TableField("downReason")
+    private String downReason;
 }

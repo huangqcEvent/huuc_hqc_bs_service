@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.huuc.context.BaseContext;
 import com.huuc.dto.LoginDTO;
 import com.huuc.dto.RegisterDTO;
+import com.huuc.enums.ConstantEnum;
+import com.huuc.enums.UserStateEnum;
 import com.huuc.exception.AccountNotFoundException;
 import com.huuc.exception.BaseException;
 import com.huuc.exception.PasswordErrorException;
@@ -42,10 +44,9 @@ public class LoginController{
         if (user == null) {
             throw new AccountNotFoundException("用户不存在,请注册后登录");
         }
-        log.info("*********************************************************"+ user);
         // 检查账号状态
-        if(user.getState() == 0){
-            throw new BaseException("账号已失效,失效时间:"+user.getDownTime());
+        if(user.getState() == UserStateEnum.USER_STATE_DOWN.getCode()){
+            throw new BaseException("账号已停用"+"\n停用时间:"+user.getDownTime()+"\n停用原因:"+user.getDownReason());
         }
         if(loginDTO.getUsername().equals(user.getUserName()) && MD5Utils.generateMD5(loginDTO.getPassword()).equals(user.getPassWord())){
             Map<String, Object> map = new HashMap<>();
@@ -62,7 +63,7 @@ public class LoginController{
         throw new PasswordErrorException("密码错误");
     }
 
-    @ApiOperation(value = "管理员注册")
+    @ApiOperation(value = "普通用户注册")
     @PostMapping("/register")
     public AjaxResult register(@RequestBody RegisterDTO registerDTO) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
@@ -75,9 +76,9 @@ public class LoginController{
             userService.save(User.builder()
                     .userName(registerDTO.getUsername())
                     .passWord(MD5Utils.generateMD5(registerDTO.getPassword()))
-                    .isAdmin(1)
+                    .isAdmin(ConstantEnum.USER_IS_NOT_ADMIN.getCode())
                     .head(registerDTO.getHead())
-                    .state(0)
+                    .state(UserStateEnum.USER_STATE_OK.getCode())
                     .build());
             return AjaxResult.success("注册成功");
         }
