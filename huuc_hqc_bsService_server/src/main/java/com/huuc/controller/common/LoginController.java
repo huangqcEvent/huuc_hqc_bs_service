@@ -1,4 +1,4 @@
-package com.huuc.controller.admin;
+package com.huuc.controller.common;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.huuc.context.BaseContext;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/common")
 @AllArgsConstructor
 @Slf4j
 @Api(tags = "管理员登录相关接口")
