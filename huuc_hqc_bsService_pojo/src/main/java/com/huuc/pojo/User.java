@@ -26,9 +26,9 @@ public class User {
     @TableField("pWord")
     private String passWord;
 
-    @ApiModelProperty("是否是管理员 0不是 1是")
-    @TableField("isAdmin")
-    private int isAdmin;
+    @ApiModelProperty("用户身份")
+    @TableField("identity")
+    private int identity;
 
     @ApiModelProperty("用户头像路径")
     @TableField("head")

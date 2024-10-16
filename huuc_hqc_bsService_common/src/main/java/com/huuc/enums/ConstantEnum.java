@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ConstantEnum {
+    USER_IS_CLUB(2,"社团"),
     USER_IS_ADMIN(1, "管理员"),
     USER_IS_NOT_ADMIN(0, "普通用户");
 

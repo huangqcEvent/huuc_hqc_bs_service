@@ -18,5 +18,5 @@ public class LoginVO {
     @ApiModelProperty("头像")
     private String head;
     @ApiModelProperty("是否是管理员")
-    private int isAdmin;
+    private int identity;
 }

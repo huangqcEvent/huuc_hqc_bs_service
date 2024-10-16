@@ -57,7 +57,7 @@ public class LoginController{
                     .id(user.getId())
                     .username(user.getUserName())
                     .head(user.getHead())
-                    .isAdmin(user.getIsAdmin())
+                    .identity(user.getIdentity())
                     .build());
         }
         throw new PasswordErrorException("密码错误");
@@ -76,7 +76,7 @@ public class LoginController{
             userService.save(User.builder()
                     .userName(registerDTO.getUsername())
                     .passWord(MD5Utils.generateMD5(registerDTO.getPassword()))
-                    .isAdmin(ConstantEnum.USER_IS_NOT_ADMIN.getCode())
+                    .identity(ConstantEnum.USER_IS_NOT_ADMIN.getCode())
                     .head(registerDTO.getHead())
                     .state(UserStateEnum.USER_STATE_OK.getCode())
                     .build());

@@ -17,8 +17,8 @@ public class UserPageDTO {
     private String username;
     @ApiModelProperty("账号状态")
     private Integer state;
-    @ApiModelProperty("是否是管理员")
-    private Integer isAdmin;
+    @ApiModelProperty("用户身份")
+    private Integer identity;
     @ApiModelProperty("账号注册起始时间")
     private LocalDateTime startTime;
     @ApiModelProperty("账号注册截止时间")
