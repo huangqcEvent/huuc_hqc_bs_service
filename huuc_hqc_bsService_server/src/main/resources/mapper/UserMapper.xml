@@ -5,17 +5,17 @@
     <select id="userPage" resultType="com.huuc.pojo.User">
         SELECT * from user
             <where>
-    <if test="username != null">
-        userName like concat('%',#{username},'%')
+    <if test="userName != null">
+        userName like concat('%',#{userName},'%')
     </if>
     <if test="state != null">
         and state = #{state}
     </if>
-    <if test="isAdmin != null">
-        and isAdmin = #{isAdmin}
+    <if test="identity != null">
+        and identity = #{identity}
     </if>
     <if test="startTime != null ">
-        and createTime &gt;= #{createTime}
+        and createTime &gt;= #{startTime}
     </if>
     <if test="endTime != null ">
         and createTime &lt;= #{endTime}

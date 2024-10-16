@@ -17,7 +17,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //1.设置分页
         PageHelper.startPage(userPageDTO.getPageNumber(), userPageDTO.getPageSize());
         //2.执行查询
-        Page<User> userPage = (Page<User>) baseMapper.userPage();
+        Page<User> userPage = (Page<User>) baseMapper.userPage(userPageDTO);
         //3.封装结果
         return new PageResult<>(userPage.getTotal(), userPage.getResult());
     }
