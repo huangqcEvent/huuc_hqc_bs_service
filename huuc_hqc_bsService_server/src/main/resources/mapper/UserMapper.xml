@@ -4,7 +4,7 @@
 <mapper namespace="com.huuc.mapper.UserMapper">
     <select id="userPage" resultType="com.huuc.pojo.User">
         SELECT * from user
-            <where>
+<where>
     <if test="userName != null">
         userName like concat('%',#{userName},'%')
     </if>
@@ -20,6 +20,7 @@
     <if test="endTime != null ">
         and createTime &lt;= #{endTime}
     </if>
-            </where>
+</where>
+        order by createTime asc
     </select>
 </mapper>
