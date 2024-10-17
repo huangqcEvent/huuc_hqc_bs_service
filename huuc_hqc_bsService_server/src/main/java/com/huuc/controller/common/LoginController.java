@@ -46,7 +46,8 @@ public class LoginController{
         }
         // 检查账号状态
         if(user.getState() == UserStateEnum.USER_STATE_DOWN.getCode()){
-            throw new BaseException("账号已停用"+"\n停用时间:"+user.getDownTime()+"\n停用原因:"+user.getDownReason());
+            //todo 获取最新封禁记录
+            throw new BaseException("账号已停用"+"\n停用时间:");
         }
         if(loginDTO.getUsername().equals(user.getUserName()) && MD5Utils.generateMD5(loginDTO.getPassword()).equals(user.getPassWord())){
             Map<String, Object> map = new HashMap<>();

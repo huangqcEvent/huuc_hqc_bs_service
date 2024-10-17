@@ -16,7 +16,7 @@ public class User {
     //雪花算法
     @ApiModelProperty("用户ID")
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private String Id;
+    private String id;
 
     @ApiModelProperty("用户名")
     @TableField("userName")
@@ -41,12 +41,4 @@ public class User {
     @ApiModelProperty("账号 0正常 1停用")
     @TableField("state")
     private int state;
-
-    @ApiModelProperty("账号停用时间")
-    @TableField(value = "downTime",fill = FieldFill.UPDATE)
-    private LocalDateTime downTime;
-
-    @ApiModelProperty("账号停用原因")
-    @TableField("downReason")
-    private String downReason;
 }

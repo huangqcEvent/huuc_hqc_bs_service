@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huuc.mapper.UserMapper">
     <select id="userPage" resultType="com.huuc.pojo.User">
-        SELECT * from user
+        SELECT id, userName, pWord, identity, head, createTime, state from user
 <where>
     <if test="userName != null">
         userName like concat('%',#{userName},'%')
@@ -23,4 +23,36 @@
 </where>
         order by createTime asc
     </select>
+
+    <select id="downLogPage" resultType="com.huuc.vo.DownLogVo">
+            SELECT
+            dl.id,
+            u.userName,
+            dl.down_reason,
+            dl.down_time,
+            dl.down_end,
+            dl.down_end_time,
+            ua.userName AS down_admin_name,
+            uae.userName AS down_end_admin_name
+            FROM
+            down_log dl
+            LEFT JOIN user u ON u.id = dl.user_id
+            LEFT JOIN user ua ON ua.id = dl.down_admin_id
+            LEFT JOIN user uae ON uae.id = dl.down_end_admin_id
+            <where>
+                <if test="userName != null">
+                    u.userName LIKE CONCAT('%', #{userName}, '%')
+                </if>
+                <if test="downEnd != null">
+                    AND dl.down_end = #{downEnd}
+                </if>
+                <if test="downTimeStart != null">
+                    AND dl.down_time &gt;= #{downTimeStart}
+                </if>
+                <if test="downTimeEnd != null">
+                    AND dl.down_time &lt;= #{downTimeEnd}
+                </if>
+            </where>
+    </select>
+
 </mapper>

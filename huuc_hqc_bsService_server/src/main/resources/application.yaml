@@ -25,6 +25,11 @@ logging:
 knife4j:
   enable: true
 
+# mybatis配置开启小驼峰
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
 # pageHelper分页插件
 pagehelper:
   #配置四項 hprs
