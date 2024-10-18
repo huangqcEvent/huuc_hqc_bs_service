@@ -5,13 +5,16 @@ import com.huuc.context.BaseContext;
 import com.huuc.dto.LoginDTO;
 import com.huuc.dto.RegisterDTO;
 import com.huuc.enums.ConstantEnum;
+import com.huuc.enums.DownEed;
 import com.huuc.enums.UserStateEnum;
 import com.huuc.exception.AccountNotFoundException;
 import com.huuc.exception.BaseException;
 import com.huuc.exception.PasswordErrorException;
+import com.huuc.pojo.DownLog;
 import com.huuc.pojo.User;
 import com.huuc.properties.JwtProperties;
 import com.huuc.result.AjaxResult;
+import com.huuc.service.DownLogService;
 import com.huuc.service.UserService;
 import com.huuc.utils.JwtUtils;
 import com.huuc.utils.MD5Utils;
@@ -34,6 +37,7 @@ import java.util.Map;
 public class LoginController{
     private final JwtProperties jwtProperties;
     private final UserService userService;
+    private final DownLogService downLogService;
     @ApiOperation(value = "管理员登录")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginDTO loginDTO) {
@@ -46,8 +50,11 @@ public class LoginController{
         }
         // 检查账号状态
         if(user.getState() == UserStateEnum.USER_STATE_DOWN.getCode()){
-            //todo 获取最新封禁记录
-            throw new BaseException("账号已停用"+"\n停用时间:");
+            LambdaQueryWrapper<DownLog> queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(DownLog::getUserId,user.getId()).eq(DownLog::getDownEnd, DownEed.DOWN_END_FALSE.getCode());
+            DownLog downLog = downLogService.getOne(queryWrapper1);
+            log.error("封禁已封禁:{}",downLog.getUserId());
+            throw new BaseException("账号已停用"+"<br>停用时间:"+downLog.getDownTime()+"<br>停用原因:"+downLog.getDownReason());
         }
         if(loginDTO.getUsername().equals(user.getUserName()) && MD5Utils.generateMD5(loginDTO.getPassword()).equals(user.getPassWord())){
             Map<String, Object> map = new HashMap<>();

@@ -38,14 +38,14 @@ public class UserController {
     }
 
     @ApiOperation(value = "封禁账号")
-    @PostMapping("/downUser")
+    @PutMapping("/downUser")
     public AjaxResult downUser(@RequestBody DownUserDTO downUserDTO) {
         userService.downUser(downUserDTO);
         return AjaxResult.success("封禁成功");
     }
 
     @ApiOperation(value = "解封账号")
-    @PostMapping("/downEnd")
+    @PutMapping("/downEnd")
     public AjaxResult downEnd(@RequestBody DownUserDTO downUserDTO) {
         log.info("解封用户入参"+downUserDTO);
         userService.downEnd(downUserDTO);
