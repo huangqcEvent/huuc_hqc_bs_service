@@ -53,6 +53,7 @@
                     AND dl.down_time &lt;= #{downTimeEnd}
                 </if>
             </where>
+            ORDER BY dl.down_time DESC
     </select>
 
 </mapper>
