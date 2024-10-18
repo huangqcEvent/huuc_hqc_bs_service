@@ -33,12 +33,12 @@ import java.util.Map;
 @RequestMapping("/common")
 @AllArgsConstructor
 @Slf4j
-@Api(tags = "管理员登录相关接口")
+@Api(tags = "登录相关接口")
 public class LoginController{
     private final JwtProperties jwtProperties;
     private final UserService userService;
     private final DownLogService downLogService;
-    @ApiOperation(value = "管理员登录")
+    @ApiOperation(value = "登录")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginDTO loginDTO) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
@@ -46,7 +46,7 @@ public class LoginController{
         User user = userService.getOne(queryWrapper);
         // 检查 user 是否为 null
         if (user == null) {
-            throw new AccountNotFoundException("用户不存在,请注册后登录");
+            throw new AccountNotFoundException("该账户不存在,请注册后登录");
         }
         // 检查账号状态
         if(user.getState() == UserStateEnum.USER_STATE_DOWN.getCode()){
@@ -93,7 +93,7 @@ public class LoginController{
         throw new PasswordErrorException("用户名或密码不能为空");
     }
 
-    @ApiOperation(value = "管理员退出")
+    @ApiOperation(value = "退出")
     @GetMapping("/logout")
     public AjaxResult logout(){
         BaseContext.removeCurrentId();
