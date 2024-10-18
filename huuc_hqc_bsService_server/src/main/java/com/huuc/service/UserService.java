@@ -20,12 +20,7 @@ public interface UserService extends IService<User> {
     PageResult<DownLogVo> getDownLogList(DownLogPageDTO downLogPageDTO);
 
     /**
-     * 封禁账号
+     * 封禁，解封账号
      */
-    void downUser(DownUserDTO downUserDTO);
-
-    /**
-     * 解封账号
-     */
-    void downEnd(DownUserDTO downUserDTO);
+     void updateUserState(DownUserDTO downUserDTO);
 }

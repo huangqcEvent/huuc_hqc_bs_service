@@ -17,6 +17,7 @@ import com.huuc.service.UserService;
 import com.huuc.vo.DownLogVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -45,38 +46,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void downUser(DownUserDTO downUserDTO) {
-        //1.将用户的封禁状态设置为0
+    @Transactional
+    public void updateUserState(DownUserDTO downUserDTO) {
+        // 1. 更新用户的封禁状态
         LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(User::getId, downUserDTO.getId())
                 .set(User::getState, downUserDTO.getState());
         update(updateWrapper);
 
-        //2.新增一条封禁记录
-        DownLog downLog = DownLog.builder()
-                .userId(downUserDTO.getId())
-                .downReason(downUserDTO.getDownReason())
-                .downAdminId(BaseContext.getCurrentId())
-                .downEnd(downUserDTO.getState())
-                .downTime(LocalDateTime.now())
-                .build();
-        downLogService.save(downLog);
+        // 2. 处理封禁记录
+        if (downUserDTO.getState() == 0) {
+            // 新增一条封禁记录
+            DownLog downLog = DownLog.builder()
+                    .userId(downUserDTO.getId())
+                    .downReason(downUserDTO.getDownReason())
+                    .downAdminId(BaseContext.getCurrentId())
+                    .downEnd(0)
+                    .downTime(LocalDateTime.now())
+                    .build();
+            downLogService.save(downLog);
+        } else if (downUserDTO.getState() == 1) {
+            // 更新此用户封禁记录里为封禁中的记录
+            LambdaUpdateWrapper<DownLog> downLogUpdateWrapper = new LambdaUpdateWrapper<>();
+            downLogUpdateWrapper.eq(DownLog::getUserId, downUserDTO.getId())
+                    .eq(DownLog::getDownEnd, 0)
+                    .set(DownLog::getDownEnd, 1)
+                    .set(DownLog::getDownEndAdminId, BaseContext.getCurrentId())
+                    .set(DownLog::getDownEndTime, LocalDateTime.now());
+            downLogService.update(downLogUpdateWrapper);
+        }
     }
 
-    @Override
-    public void downEnd(DownUserDTO downUserDTO) {
-        //1.将用户的封禁状态设置为1
-        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(User::getId, downUserDTO.getId())
-                .set(User::getState, downUserDTO.getState());
-        update(updateWrapper);
-        //2.更新此用户封禁记录里为封禁中的记录
-        LambdaUpdateWrapper<DownLog> downLogUpdateWrapper = new LambdaUpdateWrapper<>();
-        downLogUpdateWrapper.eq(DownLog::getUserId, downUserDTO.getId())
-                .eq(DownLog::getDownEnd, 0)
-                .set(DownLog::getDownEnd, downUserDTO.getState())
-                .set(DownLog::getDownEndAdminId, BaseContext.getCurrentId())
-                .set(DownLog::getDownEndTime, LocalDateTime.now());
-        downLogService.update(downLogUpdateWrapper);
-    }
 }
