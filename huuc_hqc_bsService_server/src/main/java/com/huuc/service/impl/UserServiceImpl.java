@@ -7,12 +7,15 @@ import com.github.pagehelper.PageHelper;
 import com.huuc.context.BaseContext;
 import com.huuc.dto.DownLogPageDTO;
 import com.huuc.dto.DownUserDTO;
+import com.huuc.dto.UpdateIdentityDTO;
 import com.huuc.dto.UserPageDTO;
 import com.huuc.mapper.UserMapper;
 import com.huuc.pojo.DownLog;
 import com.huuc.pojo.User;
+import com.huuc.pojo.UserIdentityUpdateLog;
 import com.huuc.result.PageResult;
 import com.huuc.service.DownLogService;
+import com.huuc.service.UserIdentityUpdateLogService;
 import com.huuc.service.UserService;
 import com.huuc.vo.DownLogVo;
 import lombok.AllArgsConstructor;
@@ -25,6 +28,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private final DownLogService downLogService;
+    private final UserIdentityUpdateLogService userIdentityUpdateLogService;
     @Override
     public PageResult<User> getUserList(UserPageDTO userPageDTO) {
         //1.设置分页
@@ -77,4 +81,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+    @Override
+    @Transactional
+    public void updateIdentity(UpdateIdentityDTO updateIdentity) {
+        //1.更新用户身份
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        lambdaUpdateWrapper.eq(User::getId,updateIdentity.getUserId())
+                .eq(User::getIdentity,updateIdentity.getOldIdentity())
+                .set(User::getIdentity,updateIdentity.getNewIdentity());
+        update(lambdaUpdateWrapper);
+
+        //2.新增更新记录
+        userIdentityUpdateLogService.save(
+                UserIdentityUpdateLog.builder()
+                        .userId(updateIdentity.getUserId())
+                        .oldIdentity(updateIdentity.getOldIdentity())
+                        .newIdentity(updateIdentity.getNewIdentity())
+                        .updateAdminId(BaseContext.getCurrentId())
+                        .updateTime(LocalDateTime.now())
+                        .updateReason(updateIdentity.getUpdateReason())
+                        .build()
+        );
+    }
 }

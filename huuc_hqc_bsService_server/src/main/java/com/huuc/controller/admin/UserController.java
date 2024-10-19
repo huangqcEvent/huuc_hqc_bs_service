@@ -2,6 +2,7 @@ package com.huuc.controller.admin;
 
 import com.huuc.dto.DownLogPageDTO;
 import com.huuc.dto.DownUserDTO;
+import com.huuc.dto.UpdateIdentityDTO;
 import com.huuc.dto.UserPageDTO;
 import com.huuc.pojo.User;
 import com.huuc.result.AjaxResult;
@@ -42,5 +43,16 @@ public class UserController {
     public AjaxResult downUser(@RequestBody DownUserDTO downUserDTO) {
         userService.updateUserState(downUserDTO);
         return AjaxResult.success(downUserDTO.getState() == 0 ? "封禁成功" : "解封成功");
+    }
+
+    @ApiOperation(value = "用户身份信息转化")
+    @PutMapping("/updateIdentity")
+    public AjaxResult updateIdentity(@RequestBody UpdateIdentityDTO updateIdentity){
+        if(updateIdentity.getNewIdentity() == updateIdentity.getOldIdentity()){
+            return AjaxResult.error("新旧身份不能相同");
+        }
+        log.info(String.valueOf(updateIdentity));
+        userService.updateIdentity(updateIdentity);
+        return AjaxResult.success("操作成功");
     }
 }

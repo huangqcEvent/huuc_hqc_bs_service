@@ -3,6 +3,7 @@ package com.huuc.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.huuc.dto.DownLogPageDTO;
 import com.huuc.dto.DownUserDTO;
+import com.huuc.dto.UpdateIdentityDTO;
 import com.huuc.dto.UserPageDTO;
 import com.huuc.pojo.User;
 import com.huuc.result.PageResult;
@@ -23,4 +24,9 @@ public interface UserService extends IService<User> {
      * 封禁，解封账号
      */
      void updateUserState(DownUserDTO downUserDTO);
+
+    /**
+     * 用户身份信息转化
+     */
+     void updateIdentity(UpdateIdentityDTO updateIdentity);
 }
