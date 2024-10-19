@@ -1,14 +1,12 @@
 package com.huuc.controller.admin;
 
-import com.huuc.dto.DownLogPageDTO;
-import com.huuc.dto.DownUserDTO;
-import com.huuc.dto.UpdateIdentityDTO;
-import com.huuc.dto.UserPageDTO;
+import com.huuc.dto.*;
 import com.huuc.pojo.User;
 import com.huuc.result.AjaxResult;
 import com.huuc.result.PageResult;
 import com.huuc.service.UserService;
 import com.huuc.vo.DownLogVo;
+import com.huuc.vo.IdentityUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,6 +33,14 @@ public class UserController {
     public AjaxResult getDownLogList(DownLogPageDTO downLogPageDTO) {
         log.info("账号封禁记录分页查询:{}", downLogPageDTO);
         PageResult<DownLogVo> pageResult = userService.getDownLogList(downLogPageDTO);
+        return AjaxResult.success(pageResult);
+    }
+
+    @ApiOperation(value = "用户身份信息转化分页查询")
+    @GetMapping("/identityPage")
+    public AjaxResult identityPage(IdentityPageDTO identityPageDto){
+        log.info("用户身份信息转化分页查询:{}",identityPageDto);
+        PageResult<IdentityUpdateVO> pageResult = userService.getIdentityLog(identityPageDto);
         return AjaxResult.success(pageResult);
     }
 

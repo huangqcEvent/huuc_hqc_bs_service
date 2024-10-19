@@ -56,4 +56,34 @@
             ORDER BY dl.down_time DESC
     </select>
 
+    <select id="identityLogPage" resultType="com.huuc.vo.IdentityUpdateVO">
+          select uiul.id,
+                 u.userName as user_name,
+                 uiul.old_identity,
+                 uiul.new_identity,
+                 uiul.update_reason,
+                 uiul.update_time,
+                 u1.userName as update_admin_name
+          from user_identity_update_log uiul
+          left join user u on uiul.user_id = u.id
+          left join user u1 on uiul.update_admin_id = u1.id
+<where>
+    <if test="userName != null">
+        u.userName LIKE CONCAT('%', #{userName}, '%')
+    </if>
+<if test="oldIdentity != null">
+     AND uiul.old_identity = #{oldIdentity}
+</if>
+<if test="newIdentity != null">
+    AND uiul.new_identity = #{newIdentity}
+</if>
+    <if test="downTimeStart != null">
+        AND uiul.update_time &gt;= #{downTimeStart}
+    </if>
+    <if test="downTimeEnd != null">
+        AND uiul.update_time &lt;= #{downTimeEnd}
+    </if>
+</where>
+    </select>
+
 </mapper>

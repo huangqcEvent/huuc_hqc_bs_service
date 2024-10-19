@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huuc.context.BaseContext;
-import com.huuc.dto.DownLogPageDTO;
-import com.huuc.dto.DownUserDTO;
-import com.huuc.dto.UpdateIdentityDTO;
-import com.huuc.dto.UserPageDTO;
+import com.huuc.dto.*;
 import com.huuc.mapper.UserMapper;
 import com.huuc.pojo.DownLog;
 import com.huuc.pojo.User;
@@ -18,6 +15,7 @@ import com.huuc.service.DownLogService;
 import com.huuc.service.UserIdentityUpdateLogService;
 import com.huuc.service.UserService;
 import com.huuc.vo.DownLogVo;
+import com.huuc.vo.IdentityUpdateVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +45,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Page<DownLogVo> downLogPage = (Page<DownLogVo>) baseMapper.downLogPage(downLogPageDTO);
         //3.封装结果
         return new PageResult<>(downLogPage.getTotal(), downLogPage.getResult());
+    }
+
+
+    @Override
+    public PageResult<IdentityUpdateVO> getIdentityLog(IdentityPageDTO identityPageDto) {
+        //1.设置分页
+        PageHelper.startPage(identityPageDto.getPageNumber(), identityPageDto.getPageSize());
+        //2.执行查询
+        Page<IdentityUpdateVO> identityLogPage = (Page<IdentityUpdateVO>) baseMapper.identityLogPage(identityPageDto);
+        //3.封装结果
+        return new PageResult<>(identityLogPage.getTotal(), identityLogPage.getResult());
     }
 
     @Override

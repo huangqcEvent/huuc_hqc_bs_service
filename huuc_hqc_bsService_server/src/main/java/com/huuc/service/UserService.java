@@ -1,13 +1,11 @@
 package com.huuc.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.huuc.dto.DownLogPageDTO;
-import com.huuc.dto.DownUserDTO;
-import com.huuc.dto.UpdateIdentityDTO;
-import com.huuc.dto.UserPageDTO;
+import com.huuc.dto.*;
 import com.huuc.pojo.User;
 import com.huuc.result.PageResult;
 import com.huuc.vo.DownLogVo;
+import com.huuc.vo.IdentityUpdateVO;
 
 public interface UserService extends IService<User> {
     /**
@@ -29,4 +27,9 @@ public interface UserService extends IService<User> {
      * 用户身份信息转化
      */
      void updateIdentity(UpdateIdentityDTO updateIdentity);
+
+    /**
+     * 账号身份变更信息分页查询
+     */
+    PageResult<IdentityUpdateVO> getIdentityLog(IdentityPageDTO identityPageDto);
 }
