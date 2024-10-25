@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huuc.mapper.ConfessionLogMapper">
+    <select id="confessionPageQuery" resultType="com.huuc.vo.ConfessionLogVO">
+        SELECT
+        cl.id,
+        cl.title,
+        cl.summary,
+        cl.create_time,
+        CASE
+        WHEN cl.is_anonymous = 0 THEN u.userName
+        ELSE '匿名'
+        END AS userName
+        FROM
+        confession_log cl
+        LEFT JOIN user u ON cl.user_id = u.id
+        <where>
+            <if test="title != null and title != ''">
+                AND cl.title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="type != null">
+                AND cl.type = #{type}
+            </if>
+            <if test="createTimeStart != null">
+                AND cl.create_time &gt;= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                AND cl.create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+               order by create_time
+        </select>
+
+
+</mapper>
