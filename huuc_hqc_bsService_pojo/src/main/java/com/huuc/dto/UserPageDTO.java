@@ -3,17 +3,15 @@ package com.huuc.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel("管理端分页查询用户信息入参")
-public class UserPageDTO {
-    @ApiModelProperty("当前页码")
-    private Integer pageNumber;
-    @ApiModelProperty("每页显示数量")
-    private Integer pageSize;
+public class UserPageDTO extends PageDTO{
     @ApiModelProperty("用户名")
     private String userName;
     @ApiModelProperty("账号状态")

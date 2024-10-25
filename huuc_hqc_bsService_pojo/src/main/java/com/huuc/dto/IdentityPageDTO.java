@@ -3,18 +3,15 @@ package com.huuc.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @ApiModel("用户身份信息更改分页查询入参")
 @Data
-public class IdentityPageDTO {
-    @ApiModelProperty("当前页码")
-    private Integer pageNumber;
-
-    @ApiModelProperty("每页显示数量")
-    private Integer pageSize;
+public class IdentityPageDTO extends PageDTO{
 
     @ApiModelProperty("修改时间范围开始")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

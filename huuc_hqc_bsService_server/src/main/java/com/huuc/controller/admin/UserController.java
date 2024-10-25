@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/user")
 @AllArgsConstructor
 @Slf4j
 @Api(tags = "管理员用户管理相关接口")
