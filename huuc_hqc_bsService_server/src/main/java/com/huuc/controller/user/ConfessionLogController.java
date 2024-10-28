@@ -23,4 +23,10 @@ public class ConfessionLogController {
     public AjaxResult getAllConfessionLogs(ConfessionLogDTO confessionLogDTO) {
         return AjaxResult.success(confessionLogService.confessionPageQuery(confessionLogDTO));
     }
+
+    @GetMapping("/getDetail/{id}")
+    @ApiOperation(value = "表白信息详情根据id查询")
+    public AjaxResult getDetailById(@PathVariable("id") String id) {
+        return AjaxResult.success(confessionLogService.getDetailById(id));
+    }
 }

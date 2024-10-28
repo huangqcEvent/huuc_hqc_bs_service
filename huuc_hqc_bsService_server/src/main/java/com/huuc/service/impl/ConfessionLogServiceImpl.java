@@ -8,6 +8,7 @@ import com.huuc.mapper.ConfessionLogMapper;
 import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.PageResult;
 import com.huuc.service.ConfessionLogService;
+import com.huuc.vo.ConfessionDetailVO;
 import com.huuc.vo.ConfessionLogVO;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,10 @@ public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, C
         Page<ConfessionLogVO> pageResult = (Page<ConfessionLogVO>) baseMapper.confessionPageQuery(confessionLogDTO);
         //3.封装结果
         return new PageResult<>(pageResult.getTotal(), pageResult.getResult());
+    }
+
+    @Override
+    public ConfessionDetailVO getDetailById(String id) {
+        return baseMapper.getDetailById(id);
     }
 }

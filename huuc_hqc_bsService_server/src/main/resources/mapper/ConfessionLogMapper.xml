@@ -32,5 +32,30 @@
                order by create_time
         </select>
 
+    <select id="getDetailById" resultType="com.huuc.vo.ConfessionDetailVO">
+        select
+            cl.user_id,
+            CASE
+                WHEN cl.is_anonymous = 0 THEN u.userName
+                ELSE '匿名'
+                END AS userName,
+            u.head as userHead,
+            cl.title,
+            cl.summary,
+            cl.content,
+            cl.to_user_info,
+            cl.create_time,
+            CASE
+                WHEN cl.type = 0 THEN '找对象'
+                ELSE '表白'
+            END AS typeStr,
+            cl.image_1 as image1,
+            cl.image_2 as image2,
+            cl.image_3 as image3
+        from confession_log cl
+        left join user u on cl.user_id = u.id
+        where cl.id = #{id}
+    </select>
+
 
 </mapper>
