@@ -41,7 +41,7 @@ public class Swagger2Config {
                 .select()
                 //只显示api路径下的页面
                 .apis(RequestHandlerSelectors.basePackage("com.huuc.controller"))
-                .paths(PathSelectors.regex("/api/.*"))
+                .paths(PathSelectors.regex("/user/.*"))
                 .build();
     }
 
@@ -68,7 +68,6 @@ public class Swagger2Config {
                 .groupName("通用接口")
                 .apiInfo(adminApiInfo())
                 .select()
-
                 .apis(RequestHandlerSelectors.basePackage("com.huuc.controller"))
                 .paths(PathSelectors.regex("/common/.*"))
                 .build();

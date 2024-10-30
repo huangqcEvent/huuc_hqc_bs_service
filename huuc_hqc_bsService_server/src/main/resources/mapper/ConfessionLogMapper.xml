@@ -16,6 +16,7 @@
         confession_log cl
         LEFT JOIN user u ON cl.user_id = u.id
         <where>
+            cl.status = 1
             <if test="title != null and title != ''">
                 AND cl.title LIKE CONCAT('%', #{title}, '%')
             </if>
@@ -29,7 +30,7 @@
                 AND cl.create_time &lt;= #{createTimeEnd}
             </if>
         </where>
-               order by create_time
+               order by create_time desc
         </select>
 
     <select id="getDetailById" resultType="com.huuc.vo.ConfessionDetailVO">

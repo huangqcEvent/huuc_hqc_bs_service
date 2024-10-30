@@ -1,6 +1,7 @@
 package com.huuc.controller.user;
 
 import com.huuc.dto.ConfessionLogDTO;
+import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.AjaxResult;
 import com.huuc.service.ConfessionLogService;
 import io.swagger.annotations.Api;
@@ -28,5 +29,12 @@ public class ConfessionLogController {
     @ApiOperation(value = "表白信息详情根据id查询")
     public AjaxResult getDetailById(@PathVariable("id") String id) {
         return AjaxResult.success(confessionLogService.getDetailById(id));
+    }
+
+    @PostMapping("/saveConfession")
+    @ApiOperation(value = "表白墙信息保存")
+    public AjaxResult saveConfession(@RequestBody ConfessionLog confessionLog) {
+        confessionLogService.saveConfession(confessionLog);
+        return AjaxResult.success("提交成功");
     }
 }

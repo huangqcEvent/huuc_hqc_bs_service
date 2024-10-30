@@ -1,11 +1,10 @@
 package com.huuc.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Data
 @ApiModel("表白墙实体")
@@ -55,17 +54,19 @@ public class ConfessionLog {
     /**
      * 创建时间
      */
-    private Date createTime;
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    private Date updateTime;
+    @TableField(value = "update_time",fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
     /**
      * 删除时间
      */
-    private Date deleteTime;
+    private LocalDateTime deleteTime;
 
     /**
      * 状态 0删除 1正常 2私密
@@ -80,15 +81,18 @@ public class ConfessionLog {
     /**
      * 图片1
      */
+    @TableField(value = "image_1")
     private String image1;
 
     /**
      * 图片2
      */
+    @TableField(value = "image_2")
     private String image2;
 
     /**
      * 图片3
      */
+    @TableField(value = "image_3")
     private String image3;
 }
