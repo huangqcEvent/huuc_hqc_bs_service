@@ -17,3 +17,8 @@ hqc:
     accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET}
     bucketName: hqc-bysj
     endpoint: oss-cn-beijing.aliyuncs.com
+  redis:
+    host: localhost
+    port: 6379
+    password: ${HUUC_REDIS_PASSWORD}
+    database: 11

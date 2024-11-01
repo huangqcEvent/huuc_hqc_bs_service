@@ -31,7 +31,7 @@ public class Swagger2Config {
     }
 
     /**
-     * 第一组：api
+     * 第一组：user
      */
     @Bean
     public Docket webApiConfig() {
