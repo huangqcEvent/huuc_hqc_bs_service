@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/comments")
-@Api(value = "评论相关接口")
+@Api(tags = "评论相关接口")
 @AllArgsConstructor
 @Slf4j
 @CacheConfig(cacheNames = "comments")

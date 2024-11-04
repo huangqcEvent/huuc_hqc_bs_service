@@ -8,6 +8,11 @@
         cl.title,
         cl.summary,
         cl.create_time,
+        cl.is_top,
+        cl.is_anonymous,
+        cl.status,
+        cl.type,
+        u.userName as realName,
         CASE
         WHEN cl.is_anonymous = 0 THEN u.userName
         ELSE '匿名'
@@ -16,11 +21,10 @@
         confession_log cl
         LEFT JOIN user u ON cl.user_id = u.id
         <where>
-            cl.status = 1
             <if test="title != null and title != ''">
                 AND cl.title LIKE CONCAT('%', #{title}, '%')
             </if>
-            <if test="type != null">
+            <if test="type != null and type != ''">
                 AND cl.type = #{type}
             </if>
             <if test="createTimeStart != null">
@@ -29,9 +33,16 @@
             <if test="createTimeEnd != null">
                 AND cl.create_time &lt;= #{createTimeEnd}
             </if>
+            <if test="userName != null and userName != ''">
+                AND u.userName LIKE CONCAT('%', #{userName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND cl.status = #{status}
+            </if>
         </where>
-               order by create_time desc
-        </select>
+        ORDER BY cl.create_time DESC
+    </select>
+
 
     <select id="getDetailById" resultType="com.huuc.vo.ConfessionDetailVO">
         select

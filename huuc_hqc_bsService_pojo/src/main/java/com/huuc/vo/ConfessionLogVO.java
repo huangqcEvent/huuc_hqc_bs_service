@@ -17,4 +17,17 @@ public class ConfessionLogVO {
     private String summary;
     @ApiModelProperty("发布时间")
     private String createTime;
+
+    //复用返回
+    @ApiModelProperty("类型")
+    private Integer type;
+    @ApiModelProperty("状态")
+    private Integer status;
+    @ApiModelProperty("是否匿名")
+    private Integer isAnonymous;
+    @ApiModelProperty("是否置顶")
+    private Integer isTop;
+    @ApiModelProperty("真实姓名")
+    private String realName;
+
 }

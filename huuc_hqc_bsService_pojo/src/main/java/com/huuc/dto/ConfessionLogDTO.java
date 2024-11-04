@@ -26,4 +26,11 @@ public class ConfessionLogDTO extends PageDTO {
     @ApiModelProperty("发布时间结束")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTimeEnd;
+
+    //复用入参
+    @ApiModelProperty("状态")
+    private Integer status;
+
+    @ApiModelProperty("用户名")
+    private String userName;
 }

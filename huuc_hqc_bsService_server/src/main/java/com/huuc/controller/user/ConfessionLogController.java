@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @AllArgsConstructor
 @Slf4j
-@Api(value = " 用户表白墙相关接口")
+@Api(tags = " 用户表白墙相关接口")
 public class ConfessionLogController {
 
     private final ConfessionLogService confessionLogService;
