@@ -29,5 +29,7 @@ public class ConfessionLogVO {
     private Integer isTop;
     @ApiModelProperty("真实姓名")
     private String realName;
+    @ApiModelProperty("用户身份")
+    private Integer identity;
 
 }
