@@ -16,6 +16,12 @@ spring:
     port: ${hqc.redis.port}
     password: ${hqc.redis.password}
     database: ${hqc.redis.database}
+  rabbitmq:
+    host: ${hqc.rabbitmq.host}
+    port: ${hqc.rabbitmq.port}
+    username: ${hqc.rabbitmq.username}
+    password: ${hqc.rabbitmq.password}
+    virtual-host: ${hqc.rabbitmq.virtual-host}
 #配置各级日志输出的级别
 logging:
   level:

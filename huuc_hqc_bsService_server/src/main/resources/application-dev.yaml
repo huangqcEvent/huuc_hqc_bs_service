@@ -22,3 +22,9 @@ hqc:
     port: 6379
     password: ${HUUC_REDIS_PASSWORD}
     database: 11
+  rabbitmq:
+    host: 192.168.31.128
+    port: 5672
+    virtual-host: /hqcbysj
+    username: rabbitmq
+    password: ${HUUC_RABBITMQ_PASSWORD}
