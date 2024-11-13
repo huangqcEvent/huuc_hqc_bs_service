@@ -29,7 +29,7 @@ public class WebSocketServer {
      */
     @OnOpen
     public void onOpen(Session session, @PathParam("sid") String sid) {
-        System.out.println("客户端：" + sid + "建立连接");
+        log.info("收到来自客户端:{}的连接", sid);
         sessionMap.put(sid, session);
     }
 
@@ -40,7 +40,7 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(String message, @PathParam("sid") String sid) {
-        System.out.println("收到来自客户端：" + sid + "的信息:" + message);
+        log.info("收到来自客户端:{}的信息:{}", sid, message);
     }
 
     /**
@@ -49,7 +49,7 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose(@PathParam("sid") String sid) {
-        System.out.println("连接断开:" + sid);
+        log.error("与客户端:{}",sid+"断开连接");
         sessionMap.remove(sid);
     }
 
@@ -64,8 +64,28 @@ public class WebSocketServer {
                 //服务器向客户端发送消息
                 session.getBasicRemote().sendText(message);
             } catch (Exception e) {
-                log.info("发送消息失败{}", String.valueOf(e));
+                log.info("发送消息失败:{}", String.valueOf(e));
             }
+        }
+    }
+
+    /**
+     * 向指定sid的用户发送消息
+     *
+     * @param sid     用户id
+     * @param message 要发送的消息
+     */
+    public void sendToClient(String sid, String message) {
+        Session session = sessionMap.get(sid);
+        if (session != null && session.isOpen()) {
+            try {
+                // 服务器向指定客户端发送消息
+                session.getBasicRemote().sendText(message);
+            } catch (Exception e) {
+                log.info("发送消息失败:{}", e.getMessage());
+            }
+        } else {
+            log.info("客户端 {} 不在线", sid);
         }
     }
 

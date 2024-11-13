@@ -20,6 +20,7 @@ import com.huuc.utils.JwtUtils;
 import com.huuc.utils.MD5Utils;
 import com.huuc.utils.StringUtils;
 import com.huuc.vo.LoginVO;
+import com.huuc.webSocket.WebSocketServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class LoginController{
     private final JwtProperties jwtProperties;
     private final UserService userService;
     private final DownLogService downLogService;
+    private final WebSocketServer webSocketServer;
     @ApiOperation(value = "登录")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginDTO loginDTO) {
@@ -96,6 +98,9 @@ public class LoginController{
     @ApiOperation(value = "退出")
     @GetMapping("/logout")
     public AjaxResult logout(){
+        //断开webSocket连接，代表用户已下线
+        webSocketServer.onClose(BaseContext.getCurrentId());
+        //清除上下文
         BaseContext.removeCurrentId();
         return AjaxResult.success("退出成功");
     }

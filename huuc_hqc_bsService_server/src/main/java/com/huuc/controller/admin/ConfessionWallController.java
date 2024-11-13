@@ -6,6 +6,7 @@ import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.AjaxResult;
 import com.huuc.service.ConfessionLogService;
 import com.huuc.service.ConfessionStatusUpdateLogService;
+import com.huuc.webSocket.WebSocketServer;
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
@@ -23,10 +24,13 @@ import java.util.Map;
 public class ConfessionWallController {
   private final ConfessionStatusUpdateLogService confessionStatusUpdateLogService;
   private final ConfessionLogService confessionLogService;
+  private final WebSocketServer webSocketServer;
    @ApiOperation(value = "更改表白状态")
    @PutMapping("/updateConfessionStatus")
    public AjaxResult updateConfessionStatus(@RequestBody ConfessionStatusDTO confessionStatusDTO) {
        confessionStatusUpdateLogService.updateStatus(confessionStatusDTO);
+       //TODO 暂时测试使用
+       webSocketServer.sendToAllClient("更新状态");
        return AjaxResult.success("更改成功");
   }
 

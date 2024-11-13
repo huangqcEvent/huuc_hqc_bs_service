@@ -31,7 +31,7 @@ public class RabbitMqUtils {
          correlationData.getFuture().addCallback(new ListenableFutureCallback<CorrelationData.Confirm>() {
              @Override
              public void onFailure(Throwable ex) {
-                 log.error("消息发送失败:{}", ex.getMessage());
+                 log.error("生产者确认机制 消息发送失败:{}", ex.getMessage());
              }
 
              @Override

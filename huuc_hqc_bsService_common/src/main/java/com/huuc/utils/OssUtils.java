@@ -34,7 +34,7 @@ public class OssUtils {
                 .append(ossProperties.getEndpoint())
                 .append("/")
                 .append(objectName);
-        log.info("文件上传成功,路径为:" + stringBuilder);
+        log.info("文件上传成功,路径为:{}", stringBuilder);
         return stringBuilder.toString();
     }
 }
