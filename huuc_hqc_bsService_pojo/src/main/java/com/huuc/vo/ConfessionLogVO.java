@@ -11,6 +11,8 @@ public class ConfessionLogVO {
     private String id;
     @ApiModelProperty("发墙用户名称 当匿名时为匿名，当不匿名时为用户名")
     private String userName;
+    @ApiModelProperty("用户id")
+    private String userId;
     @ApiModelProperty("标题")
     private String title;
     @ApiModelProperty("概要")

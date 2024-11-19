@@ -19,4 +19,7 @@ public class ConfessionStatusDTO {
 
     @ApiModelProperty("修改原因")
     private String updateReason;
+
+    @ApiModelProperty("用户id")
+    private String userId;
 }

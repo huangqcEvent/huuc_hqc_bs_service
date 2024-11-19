@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.huuc")
 @EnableCaching//开启缓存注解功能
 @MapperScan("com.huuc.mapper")
 public class HuucHqcBsServiceServerApplication {

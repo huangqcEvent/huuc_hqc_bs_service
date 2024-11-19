@@ -65,7 +65,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version> <!-- 根据实际情况选择版本 -->
+            <version>8.0.30</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -102,6 +102,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.11.0</version> <!-- 根据实际情况调整版本 -->
         </dependency>
     </dependencies>
 

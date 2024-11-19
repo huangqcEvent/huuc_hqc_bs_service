@@ -1,6 +1,7 @@
 package com.huuc.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.huuc.context.BaseContext;
 import com.huuc.dto.ConfessionStatusDTO;
 import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.AjaxResult;
@@ -30,7 +31,7 @@ public class ConfessionWallController {
    public AjaxResult updateConfessionStatus(@RequestBody ConfessionStatusDTO confessionStatusDTO) {
        confessionStatusUpdateLogService.updateStatus(confessionStatusDTO);
        //TODO 暂时测试使用
-       webSocketServer.sendToAllClient("更新状态");
+       webSocketServer.sendToClient(confessionStatusDTO.getUserId(),"被封禁");
        return AjaxResult.success("更改成功");
   }
 

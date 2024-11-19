@@ -12,6 +12,7 @@
             cl.is_anonymous,
             cl.status,
             cl.type,
+            cl.user_id,
             u.userName as realName,
             u.identity,
             CASE
