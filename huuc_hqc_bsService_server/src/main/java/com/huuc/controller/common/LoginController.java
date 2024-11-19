@@ -39,7 +39,6 @@ public class LoginController{
     private final JwtProperties jwtProperties;
     private final UserService userService;
     private final DownLogService downLogService;
-    private final WebSocketServer webSocketServer;
     @ApiOperation(value = "登录")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginDTO loginDTO) {
