@@ -20,7 +20,6 @@ import com.huuc.utils.JwtUtils;
 import com.huuc.utils.MD5Utils;
 import com.huuc.utils.StringUtils;
 import com.huuc.vo.LoginVO;
-import com.huuc.webSocket.WebSocketServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
