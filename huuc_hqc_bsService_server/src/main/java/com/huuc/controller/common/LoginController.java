@@ -98,8 +98,6 @@ public class LoginController{
     @ApiOperation(value = "退出")
     @GetMapping("/logout")
     public AjaxResult logout(){
-        //断开webSocket连接，代表用户已下线
-        webSocketServer.onClose(BaseContext.getCurrentId());
         //清除上下文
         BaseContext.removeCurrentId();
         return AjaxResult.success("退出成功");

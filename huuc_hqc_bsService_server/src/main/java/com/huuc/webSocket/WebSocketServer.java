@@ -1,46 +1,113 @@
 package com.huuc.webSocket;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.*;
 
-import javax.annotation.Resource;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
-import java.util.Collection;
-import java.util.HashMap;
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * WebSocket服务
  */
 @Slf4j
 @Component
-@ServerEndpoint("/ws/{sid}")
-public class WebSocketServer {
+public class WebSocketServer implements WebSocketHandler {
 
     // 存放会话对象
-    private static final Map<String, Session> sessionMap = new HashMap<>();
+    private static final ConcurrentHashMap<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
 
-    @Resource
+    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    /**
-     * 连接建立成功调用的方法
-     */
-    @OnOpen
-    public void onOpen(Session session, @PathParam("sid") String sid) {
+    @PostConstruct
+    public void init() {
+        if (redisTemplate == null) {
+            log.error("RedisTemplate未注入，请检查配置");
+        } else {
+            log.info("RedisTemplate已注入");
+        }
+    }
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        String sid = session.getUri().toString().split("/")[4];
         log.info("收到来自客户端: {} 的连接", sid);
         sessionMap.put(sid, session);
 
-        // 用户上线时，从 Redis 中读取消息并发送 TODO 此处有问题 redisTemplate为空》》》
+        // 用户上线时，从 Redis 中读取消息并发送
+        readAndSendMessagesFromRedis(sid);
+    }
+
+    @Override
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        String sid = session.getUri().toString().split("/")[4];
+        log.info("收到来自客户端: {} 的信息: {}", sid, message.getPayload());
+    }
+
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        log.error("与客户端: {} 发生传输错误: {}", session.getId(), exception.getMessage(), exception);
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        String sid = session.getUri().toString().split("/")[4];
+        log.error("与客户端: {} 断开连接", sid);
+        sessionMap.remove(sid);
+    }
+
+    @Override
+    public boolean supportsPartialMessages() {
+        return false;
+    }
+
+    /**
+     * 群发
+     */
+    public void sendToAllClient(String message) {
+        sessionMap.values().forEach(session -> {
+            try {
+                // 服务器向客户端发送消息
+                session.sendMessage(new TextMessage(message));
+            } catch (IOException e) {
+                log.error("发送消息失败: {}", e.getMessage(), e);
+            }
+        });
+    }
+
+    /**
+     * 向指定sid的用户发送消息
+     *
+     * @param sid     用户id
+     * @param message 要发送的消息
+     */
+    public void sendToClient(String sid, String message) {
+        WebSocketSession session = sessionMap.get(sid);
+        if (session != null && session.isOpen()) {
+            try {
+                // 服务器向指定客户端发送消息
+                session.sendMessage(new TextMessage(message));
+            } catch (IOException e) {
+                log.error("发送消息失败: {}", e.getMessage(), e);
+            }
+        } else {
+            log.info("客户端 {} 不在线", sid);
+            storeMessageToRedis(sid, message);
+        }
+    }
+
+    /**
+     * 从 Redis 中读取消息并发送
+     *
+     * @param sid 用户id
+     */
+    private void readAndSendMessagesFromRedis(String sid) {
         if (redisTemplate != null) {
-            log.info("RedisTemplate已注入");
             String key = "messages:" + sid;
             log.info("尝试从Redis中读取键: {}", key);
             List<Object> messages = redisTemplate.opsForList().range(key, 0, -1);
@@ -61,64 +128,18 @@ public class WebSocketServer {
     }
 
     /**
-     * 收到客户端消息后调用的方法
-     *
-     * @param message 客户端发送过来的消息
-     */
-    @OnMessage
-    public void onMessage(String message, @PathParam("sid") String sid) {
-        log.info("收到来自客户端: {} 的信息: {}", sid, message);
-    }
-
-    /**
-     * 连接关闭调用的方法
-     */
-    @OnClose
-    public void onClose(@PathParam("sid") String sid) {
-        log.error("与客户端: {} 断开连接", sid);
-        sessionMap.remove(sid);
-    }
-
-    /**
-     * 群发
-     */
-    public void sendToAllClient(String message) {
-        Collection<Session> sessions = sessionMap.values();
-        for (Session session : sessions) {
-            try {
-                // 服务器向客户端发送消息
-                session.getBasicRemote().sendText(message);
-            } catch (Exception e) {
-                log.error("发送消息失败: {}", e.getMessage(), e);
-            }
-        }
-    }
-
-    /**
-     * 向指定sid的用户发送消息
+     * 将消息存储到 Redis
      *
      * @param sid     用户id
-     * @param message 要发送的消息
+     * @param message 要存储的消息
      */
-    public void sendToClient(String sid, String message) {
-        Session session = sessionMap.get(sid);
-        if (session != null && session.isOpen()) {
-            try {
-                // 服务器向指定客户端发送消息
-                session.getBasicRemote().sendText(message);
-            } catch (Exception e) {
-                log.error("发送消息失败: {}", e.getMessage(), e);
-            }
+    private void storeMessageToRedis(String sid, String message) {
+        if (redisTemplate != null) {
+            String key = "messages:" + sid;
+            redisTemplate.opsForList().rightPush(key, message);
+            log.info("消息已存储到Redis: {}", key);
         } else {
-            log.info("客户端 {} 不在线", sid);
-            // 用户不在线，将消息存储到Redis
-            if (redisTemplate != null) {
-                String key = "messages:" + sid;
-                redisTemplate.opsForList().rightPush(key, message);
-                log.info("消息已存储到Redis: {}", key);
-            } else {
-                log.error("RedisTemplate为空，无法存储离线消息");
-            }
+            log.error("RedisTemplate为空，无法存储离线消息");
         }
     }
 }

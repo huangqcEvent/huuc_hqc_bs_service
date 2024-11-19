@@ -1,24 +1,21 @@
 package com.huuc.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@Slf4j
 public class RedisConfig {
+
     @Bean
-    @SuppressWarnings("all")//用于告诉编译器忽略所有类型的警告。
-    public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory){
-        log.info("开始创建redis模板对象...");
-        RedisTemplate redisTemplate = new RedisTemplate();
-        //设置redis连接工厂对象
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        //设置redis key 的序列化器
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        return redisTemplate;
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return template;
     }
 }
