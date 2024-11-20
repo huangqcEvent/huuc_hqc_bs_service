@@ -1,7 +1,6 @@
 package com.huuc.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.huuc.context.BaseContext;
 import com.huuc.dto.ConfessionStatusDTO;
 import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.AjaxResult;

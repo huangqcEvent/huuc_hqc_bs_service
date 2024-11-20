@@ -109,6 +109,14 @@
             <artifactId>amqp-client</artifactId>
             <version>5.11.0</version> <!-- 根据实际情况调整版本 -->
         </dependency>
+
+<!--        敏感词过滤工具-->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
+            <version>0.22.0</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
