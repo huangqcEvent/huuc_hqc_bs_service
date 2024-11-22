@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/lostItem")
+@RequestMapping("/user")
 @AllArgsConstructor
 @Slf4j
 @Api(tags = " 用户寻物贴相关接口")
 public class LostItemController {
     private final LostItemService lostItemService;
 
-    @PostMapping("/save")
+    @PostMapping("/saveLostItem")
     @ApiOperation(value = "保存寻物贴")
     public AjaxResult save(@RequestBody LostItem lostItem){
         lostItem.setUserId(BaseContext.getCurrentId());
