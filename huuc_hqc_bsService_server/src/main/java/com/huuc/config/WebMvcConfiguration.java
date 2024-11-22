@@ -32,6 +32,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/admin/**")//拦截路径
                 .addPathPatterns("/common/**")
                 .addPathPatterns("/user/**")
+                .addPathPatterns("/lostItem/**")
                 .excludePathPatterns("/common/login")//不拦截路径
                 .excludePathPatterns("/common/register")
                 .excludePathPatterns("/common/upload");

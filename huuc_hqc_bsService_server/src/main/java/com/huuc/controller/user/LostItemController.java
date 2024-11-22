@@ -1,0 +1,31 @@
+package com.huuc.controller.user;
+
+import com.huuc.context.BaseContext;
+import com.huuc.pojo.LostItem;
+import com.huuc.result.AjaxResult;
+import com.huuc.service.LostItemService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/lostItem")
+@AllArgsConstructor
+@Slf4j
+@Api(tags = " 用户寻物贴相关接口")
+public class LostItemController {
+    private final LostItemService lostItemService;
+
+    @PostMapping("/save")
+    @ApiOperation(value = "保存寻物贴")
+    public AjaxResult save(@RequestBody LostItem lostItem){
+        lostItem.setUserId(BaseContext.getCurrentId());
+        lostItemService.save(lostItem);
+        return AjaxResult.success("保存成功");
+    }
+}
