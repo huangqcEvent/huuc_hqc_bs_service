@@ -11,7 +11,7 @@ public interface ConfessionLogService extends IService<ConfessionLog> {
     /**
      * 表白墙信息分页查询
      */
-    PageResult<ConfessionLogVO> confessionPageQuery(ConfessionLogDTO confessionLogDTO);
+    PageResult<ConfessionLogVO>  confessionPageQuery(ConfessionLogDTO confessionLogDTO);
 
     /**
      * 根据id表白墙详情

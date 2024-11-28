@@ -1,6 +1,7 @@
 package com.huuc.controller.user;
 
 import com.huuc.context.BaseContext;
+import com.huuc.dto.LostItemPageDTO;
 import com.huuc.pojo.LostItem;
 import com.huuc.result.AjaxResult;
 import com.huuc.service.LostItemService;
@@ -27,5 +28,11 @@ public class LostItemController {
         lostItem.setUserId(BaseContext.getCurrentId());
         lostItemService.save(lostItem);
         return AjaxResult.success("保存成功");
+    }
+
+    @PostMapping("/lostItem/page")
+    @ApiOperation(value = "分页查询寻物贴")
+    public AjaxResult page(@RequestBody LostItemPageDTO lostItemPageDTO){
+        return AjaxResult.success(lostItemService.lostPage(lostItemPageDTO));
     }
 }
