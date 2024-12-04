@@ -13,7 +13,9 @@
             location,
             phone,
             create_time,
-            image1
+            image1,
+            status,
+            is_top
         from lost_item
         <where>
             <if test="itemName != null and itemName != ''">
@@ -28,6 +30,10 @@
             <if test="createTimeEnd != null">
                 and create_time &lt;= #{createTimeEnd}
             </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
         </where>
+        order by is_top desc, create_time desc
     </select>
 </mapper>

@@ -17,4 +17,6 @@ public class LostItemPageVO {
     private String phone; // 联系方式（电话）
     private LocalDateTime createTime; // 发布时间
     private String image1; // 图片1
+    private Integer status; //状态
+    private Integer isTop; //是否置顶
 }

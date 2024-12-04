@@ -16,4 +16,6 @@ public class LostItemPageDTO extends PageDTO{
     private LocalDateTime createTimeStart; // 发布时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTimeEnd;
+
+    private Integer status;//状态 1正常 2结束 3删除
 }

@@ -45,4 +45,13 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
           throw new PasswordErrorException("请先登录");
         }
     }
+
+    /**
+     * 请求处理完成后释放线程上下文
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        BaseContext.removeCurrentId();
+        log.info("线程上下文已释放");
+    }
 }

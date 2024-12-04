@@ -13,8 +13,11 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
+        //连接工厂
         template.setConnectionFactory(connectionFactory);
+        //键序列化器
         template.setKeySerializer(new StringRedisSerializer());
+        //值序列化器
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
