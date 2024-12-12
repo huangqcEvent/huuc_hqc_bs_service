@@ -21,7 +21,7 @@
             <if test="itemName != null and itemName != ''">
                 and item_name like concat('%',#{itemName},'%')
             </if>
-            <if test="type != null and type != ''">
+            <if test="type != null">
                 and type = #{type}
             </if>
             <if test="createTimeStart != null">
@@ -30,7 +30,7 @@
             <if test="createTimeEnd != null">
                 and create_time &lt;= #{createTimeEnd}
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 and status = #{status}
             </if>
         </where>

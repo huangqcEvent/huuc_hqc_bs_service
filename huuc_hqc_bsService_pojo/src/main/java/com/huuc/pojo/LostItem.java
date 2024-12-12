@@ -22,7 +22,7 @@ public class LostItem {
     private LocalDateTime updateTime; // 更新时间
     private LocalDateTime deleteTime; // 删除时间
     private Integer isTop; // 是否置顶 1置顶 0未置顶
-    private Integer status; // 状态 1正常 2结束 3删除
+    private Integer status; // 状态 1正常 2结束 3删除 4私密
     private String image1; // 图片1
     private String image2; // 图片2
     private String image3; // 图片3

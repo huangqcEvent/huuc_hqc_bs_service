@@ -38,7 +38,7 @@
                 <if test="userName != null and userName != ''">
                     AND u.userName LIKE CONCAT('%', #{userName}, '%')
                 </if>
-                <if test="status != null and status != ''">
+                <if test="status != null">
                     AND cl.status = #{status}
                 </if>
             </where>
