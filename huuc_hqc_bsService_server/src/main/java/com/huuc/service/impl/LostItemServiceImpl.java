@@ -8,6 +8,7 @@ import com.huuc.mapper.LostItemMapper;
 import com.huuc.pojo.LostItem;
 import com.huuc.result.PageResult;
 import com.huuc.service.LostItemService;
+import com.huuc.vo.LostItemDetailVO;
 import com.huuc.vo.LostItemPageVO;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,10 @@ public class LostItemServiceImpl extends ServiceImpl<LostItemMapper, LostItem> i
         Page<LostItemPageVO> pageResult = (Page<LostItemPageVO>) baseMapper.lostPage(lostItemPageDTO);
         //封装结果
         return new PageResult<>(pageResult.getTotal(), pageResult.getResult());
+    }
+
+    @Override
+    public LostItemDetailVO getDetailById(String id) {
+        return baseMapper.getDetailById(id);
     }
 }

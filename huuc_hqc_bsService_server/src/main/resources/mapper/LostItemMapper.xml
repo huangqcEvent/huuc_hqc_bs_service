@@ -7,6 +7,8 @@
         select
             id,
             user_id,
+            (select userName from user where id = user_id) as userName,
+            (select head from user where id = user_id) as head,
             item_name,
             type,
             item_desc,
@@ -35,5 +37,24 @@
             </if>
         </where>
         order by is_top desc, create_time desc
+    </select>
+    <select id="getDetailById" resultType="com.huuc.vo.LostItemDetailVO">
+        select
+            li.id,
+            li.user_id,
+            u.userName,
+            u.head,
+            li.item_name,
+            li.type,
+            li.item_desc,
+            li.location,
+            li.phone,
+            li.create_time,
+            li.image1,
+            li.image2,
+            li.image3
+        from lost_item li
+        left join user u on u.id = li.user_id
+        where li.id = #{id}
     </select>
 </mapper>

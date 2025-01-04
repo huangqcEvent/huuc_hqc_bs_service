@@ -16,8 +16,8 @@ import java.util.List;
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
     private final SensitiveWordBs sensitiveWordBs;
     @Override
-    public List<CommentsVO> getCommentsByPostId(String id) {
-        List<CommentsVO> commentsVOList = baseMapper.getCommentsByPostId(id);
+    public List<CommentsVO> getCommentsByPostId(String id,Integer postType) {
+        List<CommentsVO> commentsVOList = baseMapper.getCommentsByPostId(id,postType);
         //遍历集合,用*代替敏感词
         for (CommentsVO commentsVO : commentsVOList) {
             commentsVO.setContent(sensitiveWordBs.replace(commentsVO.getContent()));

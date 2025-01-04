@@ -37,9 +37,9 @@ public class CommentController {
 
     @ApiOperation(value = "根据贴id查询评论")
     @Cacheable(key = "#postId")
-    @GetMapping("/getComments/{id}")
-    public AjaxResult getComments(@PathVariable("id") String postId) {
-        List<CommentsVO> comments = commentService.getCommentsByPostId(postId);
+    @GetMapping("/getComments/{id}/{postType}")
+    public AjaxResult getComments(@PathVariable("id") String postId,@PathVariable("postType") Integer postType) {
+        List<CommentsVO> comments = commentService.getCommentsByPostId(postId,postType);
         PageResult<CommentsVO> commentPage = new PageResult<>(comments.size(),comments);
         return AjaxResult.success(commentPage);
     }

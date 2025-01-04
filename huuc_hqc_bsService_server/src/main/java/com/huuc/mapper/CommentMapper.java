@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.huuc.pojo.Comment;
 import com.huuc.vo.CommentsVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface CommentMapper extends BaseMapper<Comment> {
     /**
      * 根据帖子id查询评论
      */
-    List<CommentsVO> getCommentsByPostId(String id);
+    List<CommentsVO> getCommentsByPostId(@Param("id") String id,@Param("postType") Integer postType);
 }

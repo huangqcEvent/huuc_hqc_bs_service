@@ -26,11 +26,17 @@ public class CommonController {
     @ApiOperation(value = "文件上传")
     @PostMapping("/upload")
     public AjaxResult upload(@RequestParam("file") MultipartFile file) {
+        // 文件大小限制，单位为字节 (例如：10MB = 10 * 1024 * 1024)
+        long maxSize = 10 * 1024 * 1024;
+
         if (file == null || file.isEmpty()) {
             return AjaxResult.error("文件不能为空");
         }
 
-        // 获得原始文件名, 当两个文件名字相同，会有覆盖的问题出现
+        if (file.getSize() > maxSize) {
+            return AjaxResult.error("文件大小不能超过10MB");
+        }
+
         String fileName = file.getOriginalFilename();
         String url = null;
         if (fileName != null) {
@@ -43,5 +49,6 @@ public class CommonController {
         }
         return AjaxResult.success(url);
     }
+
 }
 

@@ -29,6 +29,10 @@ spring:
         initial-interval: 1000ms # 失败后的初始等待时间
         multiplier: 1 # 失败后下次的等待时长倍数，下次等待时长 = initial-interval * multiplier
         max-attempts: 3 # 最大重试次数
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 #配置各级日志输出的级别
 logging:
   level:
