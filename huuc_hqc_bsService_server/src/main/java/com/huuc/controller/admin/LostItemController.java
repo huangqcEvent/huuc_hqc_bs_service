@@ -1,5 +1,6 @@
 package com.huuc.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.huuc.dto.UpdateStatusDTO;
 import com.huuc.pojo.LostItem;
 import com.huuc.result.AjaxResult;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController("adminLostItemController")
 @RequestMapping("/admin/lostItem")
 @AllArgsConstructor
@@ -22,12 +25,22 @@ public class LostItemController {
     private final LostItemService lostItemService;
 
     @ApiOperation(value = "根据id更新状态")
-    @PutMapping("updateStatus")
+    @PutMapping("/updateStatus")
     public AjaxResult updateStatus(@RequestBody UpdateStatusDTO updateStatus) {
         lostItemService.lambdaUpdate()
                 .set(LostItem::getStatus, updateStatus.getStatus())
                 .eq(LostItem::getId, updateStatus.getId())
                 .update();
         return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "设置取消置顶")
+    @PutMapping("/updateTop")
+    public AjaxResult updateTop(@RequestBody Map<String, String> requestBody) {
+        LambdaUpdateWrapper<LostItem> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(LostItem::getId,requestBody.get("id"))
+                .set(LostItem::getIsTop,requestBody.get("newTop"));
+        lostItemService.update(updateWrapper);
+        return AjaxResult.success("更改成功");
     }
 }
