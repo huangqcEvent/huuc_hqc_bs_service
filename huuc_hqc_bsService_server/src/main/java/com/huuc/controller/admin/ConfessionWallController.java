@@ -1,9 +1,6 @@
 package com.huuc.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.huuc.SensitiveWordBsConfig.WordAllow;
-import com.huuc.SensitiveWordBsConfig.WordDeny;
-import com.huuc.SensitiveWordBsConfig.WordVO;
 import com.huuc.dto.ConfessionStatusDTO;
 import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.AjaxResult;
@@ -28,8 +25,6 @@ public class ConfessionWallController {
   private final ConfessionStatusUpdateLogService confessionStatusUpdateLogService;
   private final ConfessionLogService confessionLogService;
   private final WebSocketServer webSocketServer;
-  private final WordAllow wordAllow;
-  private final WordDeny wordDeny;
    @ApiOperation(value = "更改表白状态")
    @PutMapping("/updateConfessionStatus")
    public AjaxResult updateConfessionStatus(@RequestBody ConfessionStatusDTO confessionStatusDTO) {
@@ -47,11 +42,5 @@ public class ConfessionWallController {
               .set(ConfessionLog::getIsTop,requestBody.get("newTop"));
         confessionLogService.update(updateWrapper);
         return AjaxResult.success("更改成功");
-    }
-
-    @ApiOperation(value = "获取违禁词")
-    @GetMapping("/getProhibitedWords")
-    public AjaxResult getProhibitedWords() {
-        return AjaxResult.success(WordVO.builder().blackList(wordDeny.deny()).whiteList(wordAllow.allow()).build());
     }
 }

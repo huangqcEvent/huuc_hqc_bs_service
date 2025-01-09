@@ -18,4 +18,8 @@ public class WordDeny implements IWordDeny {
         List<SensitiveWordDeny> list = sensitiveWordDenyService.list();
         return list.stream().map(SensitiveWordDeny::getSensitiveWord).collect(Collectors.toList());
     }
+
+    public List<SensitiveWordDeny> list() {
+        return sensitiveWordDenyService.list();
+    }
 }

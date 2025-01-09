@@ -20,4 +20,8 @@ public class WordAllow implements IWordAllow {
         List<SensitiveWordAllow> list = sensitiveWordAllowService.list();
         return list.stream().map(SensitiveWordAllow::getSensitiveWord).collect(Collectors.toList());
     }
+
+    public List<SensitiveWordAllow> list() {
+        return sensitiveWordAllowService.list();
+    }
 }
