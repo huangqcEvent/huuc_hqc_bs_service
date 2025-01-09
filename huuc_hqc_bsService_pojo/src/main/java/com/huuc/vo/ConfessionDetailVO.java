@@ -9,26 +9,37 @@ import lombok.Data;
 public class ConfessionDetailVO {
     @ApiModelProperty("发布人id")
     private String userId;
+
     @ApiModelProperty("发布人")
     private String userName;
+
     @ApiModelProperty("发布人头像")
     private String userHead;
+
     @ApiModelProperty("发布时间")
     private String createTime;
+
     @ApiModelProperty("标题")
     private String title;
+
     @ApiModelProperty("概述")
     private String summary;
+
     @ApiModelProperty("内容")
     private String content;
+
     @ApiModelProperty("类型0找对象1表白")
     private String typeStr;
+
     @ApiModelProperty("描述，要求")
     private String toUserInfo;
+
     @ApiModelProperty("图片1")
     private String image1;
+
     @ApiModelProperty("图片2")
     private String image2;
+
     @ApiModelProperty("图片3")
     private String image3;
 }

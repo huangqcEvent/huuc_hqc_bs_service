@@ -11,12 +11,16 @@ import lombok.Data;
 public class LoginVO {
     @ApiModelProperty("用户id")
     private String id;
+
     @ApiModelProperty("用户名")
     private String username;
+
     @ApiModelProperty("token")
     private String jwt;
+
     @ApiModelProperty("头像")
     private String head;
+
     @ApiModelProperty("是否是管理员")
     private int identity;
 }
