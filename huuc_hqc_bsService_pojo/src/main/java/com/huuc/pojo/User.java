@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("user")
 @Builder
-@ApiModel("用户实体类")
+@ApiModel(value = "用户实体类")
 public class User {
     //雪花算法
     @ApiModelProperty("用户ID")

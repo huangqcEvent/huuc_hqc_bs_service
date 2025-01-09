@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-@ApiModel("用户登陆返回实体")
+@ApiModel(value = "用户登陆返回实体")
 public class LoginVO {
     @ApiModelProperty("用户id")
     private String id;

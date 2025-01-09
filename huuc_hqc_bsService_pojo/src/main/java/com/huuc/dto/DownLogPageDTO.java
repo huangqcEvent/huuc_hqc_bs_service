@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@ApiModel("封禁信息分页查询入参")
+@ApiModel(value = "封禁信息分页查询入参")
 @Data
 public class DownLogPageDTO extends PageDTO{
 

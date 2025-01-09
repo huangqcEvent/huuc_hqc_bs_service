@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@ApiModel("用户身份信息转化记录表")
+@ApiModel(value = "用户身份信息转化记录表")
 @TableName("user_identity_update_log")
 public class UserIdentityUpdateLog {
     @ApiModelProperty("用户身份转化记录id")

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel("表白墙信息更改入参")
+@ApiModel(value = "表白墙信息更改入参")
 @Data
 public class ConfessionStatusDTO {
 

@@ -1,5 +1,6 @@
 package com.huuc.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 //寻物贴分页查询入参
 @EqualsAndHashCode(callSuper = true)
 @Data
+@ApiModel(value = "寻物贴分页查询入参")
 public class LostItemPageDTO extends PageDTO{
 
     @ApiModelProperty("失物名称")

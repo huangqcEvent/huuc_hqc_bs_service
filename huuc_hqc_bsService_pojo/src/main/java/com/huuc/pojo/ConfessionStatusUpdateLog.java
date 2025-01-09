@@ -9,7 +9,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@ApiModel("表白墙status转换记录实体")
+@ApiModel(value = "表白墙status转换记录实体")
 @TableName("confession_status_update_log")
 @Builder
 public class ConfessionStatusUpdateLog {

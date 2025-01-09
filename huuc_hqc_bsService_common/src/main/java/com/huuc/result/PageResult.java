@@ -1,5 +1,6 @@
 package com.huuc.result;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "分页实体")
 public class PageResult<T> implements Serializable {
 
     private long total; //总记录数

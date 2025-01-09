@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel("用户身份信息转化接口入参")
+@ApiModel(value = "用户身份信息转化接口入参")
 public class UpdateIdentityDTO {
     @ApiModelProperty("用户id")
     private String userId;

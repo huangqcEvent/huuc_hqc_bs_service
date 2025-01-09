@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel("封禁用户入参")
+@ApiModel(value = "封禁用户入参")
 @Data
 public class DownUserDTO {
     //用户

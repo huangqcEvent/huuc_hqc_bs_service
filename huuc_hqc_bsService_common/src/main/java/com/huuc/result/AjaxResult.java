@@ -2,6 +2,7 @@ package com.huuc.result;
 
 import com.huuc.constant.HttpStatus;
 import com.huuc.utils.StringUtils;
+import io.swagger.annotations.ApiModel;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
  * 
  * @author hqc
  */
+@ApiModel(value = "统一返回")
 public class AjaxResult extends HashMap<String, Object>
 {
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.huuc.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@ApiModel(value = "评论VO")
 public class CommentsVO implements Serializable {
     @ApiModelProperty("评论id")
     private String id;

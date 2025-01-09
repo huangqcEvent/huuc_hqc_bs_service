@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel("管理端分页查询用户信息入参")
+@ApiModel(value = "管理端分页查询用户信息入参")
 public class UserPageDTO extends PageDTO{
     @ApiModelProperty("用户名")
     private String userName;

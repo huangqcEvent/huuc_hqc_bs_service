@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel("表白信息详情查询")
+@ApiModel(value = "表白信息详情查询")
 @Data
 public class ConfessionDetailVO {
     @ApiModelProperty("发布人id")

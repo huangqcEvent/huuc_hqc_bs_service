@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @TableName("lost_item")
-@ApiModel(value = "LostItem对象", description = "失物招领表")
+@ApiModel(value = "失物招领表", description = "失物招领表")
 public class LostItem {
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
     @ApiModelProperty("寻物贴id")

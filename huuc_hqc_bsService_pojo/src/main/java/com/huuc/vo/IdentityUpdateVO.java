@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@ApiModel("用户身份修改分页查询返回")
+@ApiModel(value = "用户身份修改分页查询返回")
 @Data
 public class IdentityUpdateVO {
     @ApiModelProperty("转化记录id")

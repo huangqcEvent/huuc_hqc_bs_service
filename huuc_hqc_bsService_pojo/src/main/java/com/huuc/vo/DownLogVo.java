@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel("封禁信息列表")
+@ApiModel(value = "封禁信息列表")
 public class DownLogVo {
     @ApiModelProperty("封禁id")
     private String id;

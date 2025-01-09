@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@ApiModel("表白墙实体")
+@ApiModel(value = "表白墙实体")
 @TableName("confession_log")
 public class ConfessionLog {
     /**

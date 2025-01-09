@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@ApiModel(description = "寻物贴详情返回")
+@ApiModel(value = "寻物贴详情返回", description = "寻物贴详情返回")
 @Data
 public class LostItemDetailVO {
     @ApiModelProperty("寻物贴id")

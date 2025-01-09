@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel("管理端登录表单")
+@ApiModel(value = "管理端登录表单")
 public class LoginDTO {
 
     @ApiModelProperty("用户名")

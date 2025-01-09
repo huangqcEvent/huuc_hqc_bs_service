@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @TableName("down_log")
 @Data
-@ApiModel("封禁记录")
+@ApiModel(value = "封禁记录")
 @Builder
 public class DownLog {
 

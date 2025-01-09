@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel("表白墙小卡片分页查询")
+@ApiModel(value = "表白墙小卡片分页查询")
 public class ConfessionLogVO {
     @ApiModelProperty("表白id")
     private String id;
