@@ -22,4 +22,12 @@ public class WordDeny implements IWordDeny {
     public List<SensitiveWordDeny> list() {
         return sensitiveWordDenyService.list();
     }
+
+    public Boolean deleteBlackById(String id) {
+        return sensitiveWordDenyService.removeById(id);
+    }
+
+    public Boolean save(SensitiveWordDeny sensitiveWordDeny){
+        return sensitiveWordDenyService.save(sensitiveWordDeny);
+    }
 }

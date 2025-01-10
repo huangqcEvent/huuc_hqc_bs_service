@@ -24,4 +24,12 @@ public class WordAllow implements IWordAllow {
     public List<SensitiveWordAllow> list() {
         return sensitiveWordAllowService.list();
     }
+
+    public boolean deleteWhiteById(String id) {
+        return sensitiveWordAllowService.removeById(id);
+    }
+
+    public boolean save(SensitiveWordAllow sensitiveWordAllow) {
+        return sensitiveWordAllowService.save(sensitiveWordAllow);
+    }
 }

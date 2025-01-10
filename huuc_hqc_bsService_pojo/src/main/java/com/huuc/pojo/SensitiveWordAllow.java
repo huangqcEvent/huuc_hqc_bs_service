@@ -17,4 +17,8 @@ public class SensitiveWordAllow {
 
     @ApiModelProperty("白名单词语")
     private String sensitiveWord;
+
+    public SensitiveWordAllow(String sensitiveWord){
+        this.sensitiveWord = sensitiveWord;
+    }
 }
