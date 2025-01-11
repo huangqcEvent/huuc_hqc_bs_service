@@ -7,6 +7,7 @@ import com.huuc.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,7 +29,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
      * 校验jwt
      *
      */
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
@@ -50,7 +51,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
      * 请求处理完成后释放线程上下文
      */
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) {
         BaseContext.removeCurrentId();
         log.info("线程上下文已释放");
     }
