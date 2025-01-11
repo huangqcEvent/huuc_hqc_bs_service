@@ -36,7 +36,7 @@ public class SensitiveWordBsController {
     }
 
     @ApiOperation(value = "删除违禁词(黑名单)")
-    @DeleteMapping("/deleteBlackByI/{id}")
+    @DeleteMapping("/deleteBlackById/{id}")
     public AjaxResult deleteBlackById(@PathVariable String id) {
         if (wordDeny.deleteBlackById(id)){
             return AjaxResult.success("删除成功");
