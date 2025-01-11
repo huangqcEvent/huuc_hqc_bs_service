@@ -1,5 +1,6 @@
 package com.huuc.controller.user;
 
+import com.huuc.result.AjaxResult;
 import com.huuc.service.ai.BigModelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +19,7 @@ public class BigModelController {
 
     @PostMapping("/chat")
     @ApiOperation(value = "提交问题返回讯飞答案")
-    public String chat(@RequestParam String question) throws Exception {
-        return bigModelService.chat(question);
+    public AjaxResult chat(@RequestParam String question) throws Exception {
+        return AjaxResult.success(bigModelService.chat(question));
     }
 }
