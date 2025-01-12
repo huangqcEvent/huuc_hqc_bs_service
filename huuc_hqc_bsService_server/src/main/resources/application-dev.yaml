@@ -30,8 +30,8 @@ hqc:
     password: ${HUUC_RABBITMQ_PASSWORD}
 xunFei:
   ai:
-    hostUrl: https://spark-api.xf-yun.com/v4.0/chat
+    hostUrl: https://spark-api.xf-yun.com/v1.1/chat
     appId: ${IFLYTEK_APP_ID}
     apiSecret: ${IFLYTEK_API_SECRET}
     apiKey: ${IFLYTEK_API_KEY}
-    domain: 4.0Ultra
+    domain: lite
