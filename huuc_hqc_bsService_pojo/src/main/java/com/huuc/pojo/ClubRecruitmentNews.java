@@ -19,7 +19,7 @@ public class ClubRecruitmentNews {
     private String title;
 
     @ApiModelProperty(value = "类型 1纳新 2公告", required = true)
-    private int type;
+    private Integer type;
 
     @ApiModelProperty(value = "社团工作")
     private String daily;
@@ -46,7 +46,7 @@ public class ClubRecruitmentNews {
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "状态 1公开中 2私密 3删除 4待审核 5已招满", required = true)
-    private int status;
+    private Integer status;
 
     @ApiModelProperty(value = "创建时间", required = true)
     private LocalDateTime createTime;
