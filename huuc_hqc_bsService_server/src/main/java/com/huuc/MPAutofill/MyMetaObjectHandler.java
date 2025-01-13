@@ -16,6 +16,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         log.info("公共字段自动填充[insert]...");
         log.info(metaObject.toString());
         metaObject.setValue("createTime", LocalDateTime.now());
+        metaObject.setValue("updateTime", LocalDateTime.now());
     }
 
     @Override
@@ -23,6 +24,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         /*更新操作自动填充*/
         log.info("公共字段自动填充[update]...");
         log.info(metaObject.toString());
-        metaObject.setValue("downTime", LocalDateTime.now());
+        metaObject.setValue("updateTime", LocalDateTime.now());
     }
 }
