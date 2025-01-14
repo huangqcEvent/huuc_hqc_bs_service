@@ -31,7 +31,7 @@ public class LostItemController {
                 .set(LostItem::getStatus, updateStatus.getStatus())
                 .eq(LostItem::getId, updateStatus.getId())
                 .update();
-        return AjaxResult.success();
+        return AjaxResult.success("更改状态成功");
     }
 
     @ApiOperation(value = "设置取消置顶")
@@ -41,6 +41,6 @@ public class LostItemController {
         updateWrapper.eq(LostItem::getId,requestBody.get("id"))
                 .set(LostItem::getIsTop,requestBody.get("newTop"));
         lostItemService.update(updateWrapper);
-        return AjaxResult.success("更改成功");
+        return AjaxResult.success("置顶状态修改成功");
     }
 }

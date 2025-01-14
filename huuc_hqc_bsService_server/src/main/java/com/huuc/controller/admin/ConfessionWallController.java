@@ -31,7 +31,7 @@ public class ConfessionWallController {
        confessionStatusUpdateLogService.updateStatus(confessionStatusDTO);
        //TODO 暂时测试使用
        webSocketServer.sendToClient(confessionStatusDTO.getUserId(),"被封禁");
-       return AjaxResult.success("更改成功");
+       return AjaxResult.success("状态修改成功");
   }
 
     @ApiOperation(value = "设置取消置顶")
@@ -41,6 +41,6 @@ public class ConfessionWallController {
       updateWrapper.eq(ConfessionLog::getId,requestBody.get("confessionId"))
               .set(ConfessionLog::getIsTop,requestBody.get("newTop"));
         confessionLogService.update(updateWrapper);
-        return AjaxResult.success("更改成功");
+        return AjaxResult.success("修改置顶状态成功");
     }
 }

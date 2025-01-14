@@ -59,6 +59,6 @@ public class UserController {
         }
         log.info(String.valueOf(updateIdentity));
         userService.updateIdentity(updateIdentity);
-        return AjaxResult.success("操作成功");
+        return AjaxResult.success("转化身份成功");
     }
 }

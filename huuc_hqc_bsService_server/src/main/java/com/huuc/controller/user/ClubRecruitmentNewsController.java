@@ -21,6 +21,6 @@ public class ClubRecruitmentNewsController {
     @ApiModelProperty("添加社团纳新/公告(待审核状态)")
     public AjaxResult save(@RequestBody ClubRecruitmentNews clubRecruitmentNews) throws ResponseParseException {
         clubRecruitmentNewsService.saveClub(clubRecruitmentNews);
-        return AjaxResult.success("成功提交审核");
+        return AjaxResult.success("已提交，审核通过后将发布");
     }
 }

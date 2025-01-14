@@ -35,6 +35,6 @@ public class ConfessionLogController {
     @ApiOperation(value = "表白墙信息保存")
     public AjaxResult saveConfession(@RequestBody ConfessionLog confessionLog) {
         confessionLogService.saveConfession(confessionLog);
-        return AjaxResult.success("提交成功");
+        return AjaxResult.success("已提交并成功发布");
     }
 }

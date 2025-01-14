@@ -24,7 +24,7 @@ public class LostItemController {
     public AjaxResult save(@RequestBody LostItem lostItem){
         lostItem.setUserId(BaseContext.getCurrentId());
         lostItemService.save(lostItem);
-        return AjaxResult.success("保存成功");
+        return AjaxResult.success("已提交并成功发布");
     }
 
     @PostMapping("/lostItem/page")

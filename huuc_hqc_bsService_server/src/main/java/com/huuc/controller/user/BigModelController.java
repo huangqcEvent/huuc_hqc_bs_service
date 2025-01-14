@@ -20,6 +20,6 @@ public class BigModelController {
     @PostMapping("/chat")
     @ApiOperation(value = "提交问题返回讯飞答案")
     public AjaxResult chat(@RequestParam String question) throws Exception {
-        return AjaxResult.success(bigModelService.chat(question));
+        return AjaxResult.success("提问成功",bigModelService.chat(question));
     }
 }

@@ -57,10 +57,17 @@ public class SensitiveWordBsController {
     @PostMapping("/addProhibitedWords")
     public AjaxResult addProhibitedWords(@RequestBody SaveWordDTO saveWordDTO) {
         if (saveWordDTO.getType() == 1){
+            //先判断是否已存在
+            if (wordDeny.list().stream().anyMatch(sensitiveWordDeny -> sensitiveWordDeny.getSensitiveWord().equals(saveWordDTO.getWord()))) {
+                return AjaxResult.error("该黑名单词汇已存在，请不要重复添加");
+            }
             if (wordDeny.save(new SensitiveWordDeny(saveWordDTO.getWord()))) {
                 return AjaxResult.success("新增成功");
             }
         }else {
+            if (wordAllow.list().stream().anyMatch(sensitiveWordAllow -> sensitiveWordAllow.getSensitiveWord().equals(saveWordDTO.getWord()))) {
+                return AjaxResult.error("该白名单词汇已存在，请不要重复添加");
+            }
             if (wordAllow.save(new SensitiveWordAllow(saveWordDTO.getWord()))) {
                 return AjaxResult.success("新增成功");
             }
