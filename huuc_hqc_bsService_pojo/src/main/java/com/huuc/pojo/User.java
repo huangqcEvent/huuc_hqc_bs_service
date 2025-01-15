@@ -35,7 +35,7 @@ public class User {
     private String head;
 
     @ApiModelProperty("注册时间")
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+    @TableField("createTime")
     private LocalDateTime createTime;
 
     @ApiModelProperty("账号 0正常 1停用")

@@ -85,9 +85,9 @@ public class LoginController{
             userService.save(User.builder()
                     .userName(registerDTO.getUsername())
                     .passWord(MD5Utils.generateMD5(registerDTO.getPassword()))
+                    .createTime(LocalDateTime.now())
                     .identity(ConstantEnum.USER_IS_NOT_ADMIN.getCode())
                     .head(registerDTO.getHead())
-                    .createTime(LocalDateTime.now())
                     .state(UserStateEnum.USER_STATE_OK.getCode())
                     .build());
             return AjaxResult.success("注册成功");
