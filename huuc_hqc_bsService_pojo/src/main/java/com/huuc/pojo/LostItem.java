@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @TableName("lost_item")
 @ApiModel(value = "失物招领表", description = "失物招领表")
 public class LostItem {
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("寻物贴id")
     private String id; // 寻物贴id
 
@@ -38,7 +38,7 @@ public class LostItem {
     private LocalDateTime createTime; // 发布时间
 
     @ApiModelProperty("更新时间")
-    @TableField(value = "update_time",fill = FieldFill.UPDATE)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime; // 更新时间
 
     @ApiModelProperty("删除时间")

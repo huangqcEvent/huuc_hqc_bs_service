@@ -5,7 +5,7 @@ import com.huuc.pojo.User;
 import com.huuc.result.AjaxResult;
 import com.huuc.result.PageResult;
 import com.huuc.service.UserService;
-import com.huuc.vo.DownLogVo;
+import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/downLogPage")
     public AjaxResult getDownLogList(DownLogPageDTO downLogPageDTO) {
         log.info("账号封禁记录分页查询:{}", downLogPageDTO);
-        PageResult<DownLogVo> pageResult = userService.getDownLogList(downLogPageDTO);
+        PageResult<DownLogVO> pageResult = userService.getDownLogList(downLogPageDTO);
         return AjaxResult.success(pageResult);
     }
 

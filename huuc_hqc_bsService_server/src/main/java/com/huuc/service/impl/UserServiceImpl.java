@@ -14,7 +14,7 @@ import com.huuc.result.PageResult;
 import com.huuc.service.DownLogService;
 import com.huuc.service.UserIdentityUpdateLogService;
 import com.huuc.service.UserService;
-import com.huuc.vo.DownLogVo;
+import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,11 +38,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public PageResult<DownLogVo> getDownLogList(DownLogPageDTO downLogPageDTO) {
+    public PageResult<DownLogVO> getDownLogList(DownLogPageDTO downLogPageDTO) {
         //1.设置分页
         PageHelper.startPage(downLogPageDTO.getPageNumber(), downLogPageDTO.getPageSize());
         //2.执行查询
-        Page<DownLogVo> downLogPage = (Page<DownLogVo>) baseMapper.downLogPage(downLogPageDTO);
+        Page<DownLogVO> downLogPage = (Page<DownLogVO>) baseMapper.downLogPage(downLogPageDTO);
         //3.封装结果
         return new PageResult<>(downLogPage.getTotal(), downLogPage.getResult());
     }

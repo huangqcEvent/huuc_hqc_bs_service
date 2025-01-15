@@ -34,7 +34,8 @@ public class ConfessionLogController {
     @PostMapping("/saveConfession")
     @ApiOperation(value = "表白墙信息保存")
     public AjaxResult saveConfession(@RequestBody ConfessionLog confessionLog) {
+
         confessionLogService.saveConfession(confessionLog);
-        return AjaxResult.success("已提交并成功发布");
+        return AjaxResult.success("提交成功，审核通过后将发布");
     }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @TableName("comment")
 @ApiModel(value = "评论表")
 public class Comment {
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty("帖子id")

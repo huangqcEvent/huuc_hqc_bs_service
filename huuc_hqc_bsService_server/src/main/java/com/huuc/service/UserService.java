@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.huuc.dto.*;
 import com.huuc.pojo.User;
 import com.huuc.result.PageResult;
-import com.huuc.vo.DownLogVo;
+import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 
 public interface UserService extends IService<User> {
@@ -16,7 +16,7 @@ public interface UserService extends IService<User> {
     /**
      * 封禁信息分页查询
      */
-    PageResult<DownLogVo> getDownLogList(DownLogPageDTO downLogPageDTO);
+    PageResult<DownLogVO> getDownLogList(DownLogPageDTO downLogPageDTO);
 
     /**
      * 封禁，解封账号

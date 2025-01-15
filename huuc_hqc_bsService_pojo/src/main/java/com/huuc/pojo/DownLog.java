@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class DownLog {
 
     @ApiModelProperty("封禁id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty("封禁用户id")

@@ -24,7 +24,7 @@
         order by createTime asc
     </select>
 
-    <select id="downLogPage" resultType="com.huuc.vo.DownLogVo">
+    <select id="downLogPage" resultType="com.huuc.vo.DownLogVO">
             SELECT
             dl.id,
             u.userName,

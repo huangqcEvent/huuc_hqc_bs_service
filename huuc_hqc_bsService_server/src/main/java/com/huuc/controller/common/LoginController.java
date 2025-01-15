@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,6 +87,7 @@ public class LoginController{
                     .passWord(MD5Utils.generateMD5(registerDTO.getPassword()))
                     .identity(ConstantEnum.USER_IS_NOT_ADMIN.getCode())
                     .head(registerDTO.getHead())
+                    .createTime(LocalDateTime.now())
                     .state(UserStateEnum.USER_STATE_OK.getCode())
                     .build());
             return AjaxResult.success("注册成功");

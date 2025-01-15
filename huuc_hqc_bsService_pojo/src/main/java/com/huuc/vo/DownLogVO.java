@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "封禁信息列表")
-public class DownLogVo {
+public class DownLogVO {
     @ApiModelProperty("封禁id")
     private String id;
 

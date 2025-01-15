@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("user_identity_update_log")
 public class UserIdentityUpdateLog {
     @ApiModelProperty("用户身份转化记录id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty("用户id")

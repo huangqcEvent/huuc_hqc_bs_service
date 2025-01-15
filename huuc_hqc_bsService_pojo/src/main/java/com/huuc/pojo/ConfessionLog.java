@@ -14,7 +14,7 @@ public class ConfessionLog {
     /**
      * (表白,找对象) 记录id
      */
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("(表白,找对象) 记录id")
     private String id;
 
@@ -71,7 +71,7 @@ public class ConfessionLog {
      * 更新时间
      */
     @ApiModelProperty("更新时间")
-    @TableField(value = "update_time",fill = FieldFill.UPDATE)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     /**

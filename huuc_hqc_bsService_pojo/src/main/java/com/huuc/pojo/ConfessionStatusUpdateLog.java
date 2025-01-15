@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @TableName("confession_status_update_log")
 @Builder
 public class ConfessionStatusUpdateLog {
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("ID")
     private String id;
 

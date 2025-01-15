@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ApiModel(description = "社团纳新/公告表")
 public class ClubRecruitmentNews {
     @ApiModelProperty(value = "社团纳新/公告id", required = true)
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty(value = "社团id", required = true)

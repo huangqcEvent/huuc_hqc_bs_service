@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class User {
     //雪花算法
     @ApiModelProperty("用户ID")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty("用户名")
@@ -35,7 +35,7 @@ public class User {
     private String head;
 
     @ApiModelProperty("注册时间")
-    @TableField(value = "createTime",fill = FieldFill.INSERT)
+    @TableField(value = "createTime", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty("账号 0正常 1停用")

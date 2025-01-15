@@ -12,7 +12,7 @@ import lombok.Data;
 @ApiModel(value = "敏感词黑名单",description = "敏感词黑名单")
 public class SensitiveWordDeny {
     @ApiModelProperty("id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty("黑名单词语")

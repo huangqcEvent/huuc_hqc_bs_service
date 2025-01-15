@@ -11,7 +11,7 @@ import lombok.Data;
 @TableName("sensitive_word_allow")
 @ApiModel(value = "敏感词白名单",description = "敏感词白名单")
 public class SensitiveWordAllow {
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id")
     private String id;
 

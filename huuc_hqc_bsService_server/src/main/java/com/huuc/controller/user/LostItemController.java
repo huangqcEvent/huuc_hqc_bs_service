@@ -2,9 +2,14 @@ package com.huuc.controller.user;
 
 import com.huuc.context.BaseContext;
 import com.huuc.dto.LostItemPageDTO;
+import com.huuc.enums.AuditStatusEnum;
+import com.huuc.enums.PostStatusEnum;
+import com.huuc.enums.PostTypeEnum;
 import com.huuc.pojo.LostItem;
+import com.huuc.pojo.PostAudit;
 import com.huuc.result.AjaxResult;
 import com.huuc.service.LostItemService;
+import com.huuc.service.PostAuditService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -18,13 +23,23 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = " 用户寻物贴相关接口")
 public class LostItemController {
     private final LostItemService lostItemService;
+    private final PostAuditService postAuditService;
 
     @PostMapping("/saveLostItem")
     @ApiOperation(value = "保存寻物贴")
     public AjaxResult save(@RequestBody LostItem lostItem){
         lostItem.setUserId(BaseContext.getCurrentId());
+        lostItem.setStatus(PostStatusEnum.POST_STATUS_AUDIT.getCode());
         lostItemService.save(lostItem);
-        return AjaxResult.success("已提交并成功发布");
+
+        postAuditService.save(
+                PostAudit.builder()
+                        .postId(lostItem.getId())
+                        .postType(PostTypeEnum.POST_TYPE_ITEM.getCode())
+                        .status(AuditStatusEnum.AUDIT_STATUS_PENDING.getCode())
+                        .build()
+        );
+        return AjaxResult.success("提交成功，审核通过后将发布");
     }
 
     @PostMapping("/lostItem/page")
