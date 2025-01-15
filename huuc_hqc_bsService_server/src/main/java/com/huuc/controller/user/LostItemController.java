@@ -36,7 +36,7 @@ public class LostItemController {
                 PostAudit.builder()
                         .postId(lostItem.getId())
                         .postType(PostTypeEnum.POST_TYPE_ITEM.getCode())
-                        .status(AuditStatusEnum.AUDIT_STATUS_PENDING.getCode())
+                        .status(AuditStatusEnum.AUDIT_STATUS_AUTO.getCode())
                         .build()
         );
         return AjaxResult.success("提交成功，审核通过后将发布");

@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "社团审核返回")
-public class ClubRecruitmentNewsVO {
+public class AuditPageVO {
     private String id;//流水号
     private String postId;//贴id
-    private String postType;//贴大类型
-    private String postSubType;//贴小类型
+    private Integer postType;//贴大类型
+    private Integer postSubType;//贴小类型
     private String userId;//用户id
     private String userName;//用户名称
     private String title;//标题

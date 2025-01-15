@@ -22,6 +22,7 @@ import java.util.List;
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     private final JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    private final JacksonObjectMapper jacksonObjectMapper;
 
     /**
      * 注册自定义拦截器
@@ -30,13 +31,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         log.info("开始注册自定义拦截器...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")//拦截路径
-                .addPathPatterns("/common/**")
                 .addPathPatterns("/user/**")
-                .addPathPatterns("/lostItem/**")
-                .excludePathPatterns("/common/login")//不拦截路径
-                .excludePathPatterns("/common/register")
-                .excludePathPatterns("/common/upload")
-                .excludePathPatterns("/admin/club/page");
+                .excludePathPatterns("/common/**");
     }
 
     /**
@@ -56,7 +52,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         //创建一个消息转换器对象
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         //需要为消息转换器设置一个对象转换器，对象转换器可以将json对象序列化为json数据
-        converter.setObjectMapper(new JacksonObjectMapper());
+        converter.setObjectMapper(jacksonObjectMapper);
         //将拓展的消息转换器加入到容器中//把优先级排到第一位，优先使用
         converters.add(0,converter);
     }

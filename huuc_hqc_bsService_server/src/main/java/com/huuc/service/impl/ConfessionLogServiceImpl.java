@@ -53,7 +53,7 @@ public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, C
                         .postId(confessionLog.getId())
                         .releaseType(status)
                         .postType(PostTypeEnum.POST_TYPE_CONFESSION.getCode())
-                        .status(AuditStatusEnum.AUDIT_STATUS_PENDING.getCode())
+                        .status(AuditStatusEnum.AUDIT_STATUS_AUTO.getCode())
                         .build()
         );
     }

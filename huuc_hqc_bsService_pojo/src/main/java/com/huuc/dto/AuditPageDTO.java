@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "表白墙信息分页查询入参")
-public class ClubRecruitmentNewsDTO extends PageDTO {
+@ApiModel(value = "审核列表入参")
+public class AuditPageDTO extends PageDTO {
 
     @ApiModelProperty(value = "流水号")
     private String id;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "用户名称")
     private String userName;
 
     @ApiModelProperty(value = "审核状态")
