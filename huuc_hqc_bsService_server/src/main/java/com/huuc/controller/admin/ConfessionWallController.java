@@ -41,6 +41,7 @@ public class ConfessionWallController {
       updateWrapper.eq(ConfessionLog::getId,requestBody.get("confessionId"))
               .set(ConfessionLog::getIsTop,requestBody.get("newTop"));
         confessionLogService.update(updateWrapper);
+        webSocketServer.sendToClient(requestBody.get("userId"),"置顶改变");
         return AjaxResult.success("修改置顶状态成功");
     }
 }
