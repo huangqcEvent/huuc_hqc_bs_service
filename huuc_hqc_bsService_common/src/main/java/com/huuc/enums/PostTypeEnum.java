@@ -15,4 +15,13 @@ public enum PostTypeEnum {
         this.code = code;
         this.msg = msg;
     }
+
+    public static PostTypeEnum getByCode(int code) {
+        for (PostTypeEnum postTypeEnum : PostTypeEnum.values()) {
+            if (postTypeEnum.getCode() == code) {
+                return postTypeEnum;
+            }
+        }
+        return null;
+    }
 }

@@ -5,12 +5,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huuc.context.BaseContext;
 import com.huuc.dto.ConfessionLogDTO;
-import com.huuc.enums.AuditStatusEnum;
 import com.huuc.enums.PostStatusEnum;
 import com.huuc.enums.PostTypeEnum;
 import com.huuc.mapper.ConfessionLogMapper;
 import com.huuc.pojo.ConfessionLog;
-import com.huuc.pojo.PostAudit;
 import com.huuc.result.PageResult;
 import com.huuc.service.ConfessionLogService;
 import com.huuc.service.PostAuditService;
@@ -24,6 +22,7 @@ import javax.annotation.Resource;
 public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, ConfessionLog> implements ConfessionLogService {
     @Resource
     private PostAuditService postAuditService;
+
     @Override
     public PageResult<ConfessionLogVO> confessionPageQuery(ConfessionLogDTO confessionLogDTO) {
         //1.设置分页
@@ -41,20 +40,10 @@ public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, C
 
     @Override
     public void saveConfession(ConfessionLog confessionLog) {
-
-        Integer status = confessionLog.getStatus();
-
+        Integer releaseType = confessionLog.getStatus();
         confessionLog.setStatus(PostStatusEnum.POST_STATUS_AUDIT.getCode());
         confessionLog.setUserId(BaseContext.getCurrentId());
         this.save(confessionLog);
-
-        postAuditService.save(
-                PostAudit.builder()
-                        .postId(confessionLog.getId())
-                        .releaseType(status)
-                        .postType(PostTypeEnum.POST_TYPE_CONFESSION.getCode())
-                        .status(AuditStatusEnum.AUDIT_STATUS_AUTO.getCode())
-                        .build()
-        );
+        postAuditService.saveAutoAudit(confessionLog.getId(), PostTypeEnum.POST_TYPE_CONFESSION.getCode(),releaseType);
     }
 }

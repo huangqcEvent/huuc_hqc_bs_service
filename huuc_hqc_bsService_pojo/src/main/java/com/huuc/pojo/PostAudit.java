@@ -31,7 +31,10 @@ public class PostAudit {
     @ApiModelProperty(value = "不通过原因")
     private String reason;
 
-    @ApiModelProperty(value = "审核时间")
+    @ApiModelProperty(value = "机器审核时间")
+    private LocalDateTime autoAuditTime;
+
+    @ApiModelProperty(value = "人工审核时间")
     private LocalDateTime auditTime;
 
     @ApiModelProperty(value = "审核人id")

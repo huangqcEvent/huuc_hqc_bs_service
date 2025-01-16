@@ -2,11 +2,9 @@ package com.huuc.controller.user;
 
 import com.huuc.context.BaseContext;
 import com.huuc.dto.LostItemPageDTO;
-import com.huuc.enums.AuditStatusEnum;
 import com.huuc.enums.PostStatusEnum;
 import com.huuc.enums.PostTypeEnum;
 import com.huuc.pojo.LostItem;
-import com.huuc.pojo.PostAudit;
 import com.huuc.result.AjaxResult;
 import com.huuc.service.LostItemService;
 import com.huuc.service.PostAuditService;
@@ -28,17 +26,11 @@ public class LostItemController {
     @PostMapping("/saveLostItem")
     @ApiOperation(value = "保存寻物贴")
     public AjaxResult save(@RequestBody LostItem lostItem){
+        Integer releaseType = lostItem.getStatus();
         lostItem.setUserId(BaseContext.getCurrentId());
         lostItem.setStatus(PostStatusEnum.POST_STATUS_AUDIT.getCode());
         lostItemService.save(lostItem);
-
-        postAuditService.save(
-                PostAudit.builder()
-                        .postId(lostItem.getId())
-                        .postType(PostTypeEnum.POST_TYPE_ITEM.getCode())
-                        .status(AuditStatusEnum.AUDIT_STATUS_AUTO.getCode())
-                        .build()
-        );
+        postAuditService.saveAutoAudit(lostItem.getId(), PostTypeEnum.POST_TYPE_ITEM.getCode(),releaseType);
         return AjaxResult.success("提交成功，审核通过后将发布");
     }
 

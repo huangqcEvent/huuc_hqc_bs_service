@@ -15,6 +15,7 @@ public class AuditPageVO {
     private String title;//标题
     private Integer status;//状态
     private String createTime;//提交时间
+    private String autoAuditTime;//机器审核时间
     private String auditTime;//审核时间
     private String auditUserId;//审核人
     private String auditUserName;//审核人名称

@@ -8,4 +8,6 @@ import com.huuc.vo.AuditPageVO;
 
 public interface PostAuditService extends IService<PostAudit> {
     PageResult<AuditPageVO> getPage(AuditPageDTO params);
+
+    void saveAutoAudit(String postId, Integer postType, Integer releaseType);
 }

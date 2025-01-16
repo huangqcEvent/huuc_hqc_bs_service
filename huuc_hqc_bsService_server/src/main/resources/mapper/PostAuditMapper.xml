@@ -13,6 +13,7 @@
         COALESCE(cl.create_time, li.create_time, crn.create_time) AS createTime,
         COALESCE(u.userName, u3.userName, u2.userName) AS userName,
         pa.status,
+        pa.auto_audit_time,
         pa.audit_time,
         pa.audit_user_id,
         u4.userName AS auditUserName,

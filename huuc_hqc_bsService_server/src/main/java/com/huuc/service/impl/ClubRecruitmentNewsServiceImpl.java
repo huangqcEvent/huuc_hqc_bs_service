@@ -2,6 +2,7 @@ package com.huuc.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.huuc.context.BaseContext;
+import com.huuc.enums.PostStatusEnum;
 import com.huuc.exception.AccountNotFoundException;
 import com.huuc.mapper.ClubRecruitmentNewsMapper;
 import com.huuc.pojo.ClubRecruitmentNews;
@@ -18,7 +19,7 @@ public class ClubRecruitmentNewsServiceImpl extends ServiceImpl<ClubRecruitmentN
         //用户id
         clubRecruitmentNews.setClubId(BaseContext.getCurrentId());
         //待审核
-        clubRecruitmentNews.setStatus(4);
+        clubRecruitmentNews.setStatus(PostStatusEnum.POST_STATUS_AUDIT.getCode());
         //已招人数
         clubRecruitmentNews.setAlready(0);
         //排序
