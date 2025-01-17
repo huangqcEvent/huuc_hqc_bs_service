@@ -85,5 +85,13 @@
     </if>
 </where>
     </select>
+    <select id="getInfoById" resultType="com.huuc.service.detail.data.UserInfoData">
+        select
+            id as userId,
+            userName,
+            head as userHead
+        from user
+        where id = #{userId}
+    </select>
 
 </mapper>

@@ -1,7 +1,7 @@
 package com.huuc.interceptor;
 
 import com.huuc.context.BaseContext;
-import com.huuc.exception.PasswordErrorException;
+import com.huuc.exception.ResponseException;
 import com.huuc.properties.JwtProperties;
 import com.huuc.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -43,7 +43,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             //3、通过，放行
             return true;
         } catch (Exception ex) {
-          throw new PasswordErrorException("请先登录");
+          throw new ResponseException("请先登录");
         }
     }
 

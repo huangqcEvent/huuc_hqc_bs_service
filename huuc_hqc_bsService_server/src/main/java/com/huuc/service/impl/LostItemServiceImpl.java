@@ -8,6 +8,7 @@ import com.huuc.mapper.LostItemMapper;
 import com.huuc.pojo.LostItem;
 import com.huuc.result.PageResult;
 import com.huuc.service.LostItemService;
+import com.huuc.service.detail.data.LostItemInfoData;
 import com.huuc.vo.LostItemDetailVO;
 import com.huuc.vo.LostItemPageVO;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,10 @@ public class LostItemServiceImpl extends ServiceImpl<LostItemMapper, LostItem> i
     @Override
     public LostItemDetailVO getDetailById(String id) {
         return baseMapper.getDetailById(id);
+    }
+
+    @Override
+    public LostItemInfoData getDetailById1(String id) {
+        return baseMapper.getDetailById1(id);
     }
 }

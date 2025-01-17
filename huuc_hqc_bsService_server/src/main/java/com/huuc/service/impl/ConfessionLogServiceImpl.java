@@ -12,6 +12,7 @@ import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.PageResult;
 import com.huuc.service.ConfessionLogService;
 import com.huuc.service.PostAuditService;
+import com.huuc.service.detail.data.ConfessionInfoData;
 import com.huuc.vo.ConfessionDetailVO;
 import com.huuc.vo.ConfessionLogVO;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,10 @@ public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, C
         confessionLog.setUserId(BaseContext.getCurrentId());
         this.save(confessionLog);
         postAuditService.saveAutoAudit(confessionLog.getId(), PostTypeEnum.POST_TYPE_CONFESSION.getCode(),releaseType);
+    }
+
+    @Override
+    public ConfessionInfoData getDetailById1(String id) {
+        return baseMapper.getDetailById1(id);
     }
 }

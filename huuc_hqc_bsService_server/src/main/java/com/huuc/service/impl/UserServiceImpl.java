@@ -14,6 +14,7 @@ import com.huuc.result.PageResult;
 import com.huuc.service.DownLogService;
 import com.huuc.service.UserIdentityUpdateLogService;
 import com.huuc.service.UserService;
+import com.huuc.service.detail.data.UserInfoData;
 import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Page<IdentityUpdateVO> identityLogPage = (Page<IdentityUpdateVO>) baseMapper.identityLogPage(identityPageDto);
         //3.封装结果
         return new PageResult<>(identityLogPage.getTotal(), identityLogPage.getResult());
+    }
+
+    @Override
+    public UserInfoData getInfoById(String userId) {
+        return baseMapper.getInfoById(userId);
     }
 
     @Override

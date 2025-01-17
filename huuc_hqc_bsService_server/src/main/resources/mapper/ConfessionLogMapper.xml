@@ -70,5 +70,22 @@
         where cl.id = #{id}
     </select>
 
-
+    <select id="getDetailById1" resultType="com.huuc.service.detail.data.ConfessionInfoData">
+        select
+            id,
+            title,
+            summary,
+            content,
+            to_user_info,
+            create_time,
+            CASE
+                WHEN type = 1 THEN '找对象'
+                ELSE '表白'
+                END AS typeStr,
+            image_1,
+            image_2,
+            image_3
+        from confession_log
+        where id = #{id}
+    </select>
 </mapper>

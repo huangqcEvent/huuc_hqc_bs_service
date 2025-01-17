@@ -57,4 +57,18 @@
         left join user u on u.id = li.user_id
         where li.id = #{id}
     </select>
+    <select id="getDetailById1" resultType="com.huuc.service.detail.data.LostItemInfoData">
+        select id,
+               item_name,
+               IF(type = 1, '寻物', '寻主') as type,
+               item_desc,
+               location,
+               phone,
+               create_time,
+               image1,
+               image2,
+               image3
+        from lost_item
+        where id = #{id}
+    </select>
 </mapper>

@@ -11,13 +11,12 @@
         COALESCE(cl.user_id, li.user_id, crn.club_id) AS userId,
         COALESCE(cl.title, li.item_name, crn.title) AS title,
         COALESCE(cl.create_time, li.create_time, crn.create_time) AS createTime,
-        COALESCE(u.userName, u3.userName, u2.userName) AS userName,
+        COALESCE(u.userName, u2.userName, u3.userName) AS userName,
         pa.status,
-        pa.auto_audit_time,
-        pa.audit_time,
-        pa.audit_user_id,
-        u4.userName AS auditUserName,
-        pa.reason
+        pal.audit_time AS autoAuditTime,
+        pal1.audit_time AS auditTime,
+        pal2.audit_remark AS reason,
+        COALESCE(pal1.audit_user,pal3.audit_user,pal4.audit_user) AS auditUserName
         FROM
         post_audit pa
         LEFT JOIN confession_log cl ON pa.post_id = cl.id AND pa.post_type = 1
@@ -26,13 +25,17 @@
         LEFT JOIN user u ON cl.user_id = u.id AND pa.post_type = 1
         LEFT JOIN user u2 ON li.user_id = u2.id AND pa.post_type = 2
         LEFT JOIN user u3 ON crn.club_id = u3.id AND pa.post_type = 3
-        LEFT JOIN user u4 ON pa.audit_user_id = u4.id
+        LEFT JOIN post_audit_log pal ON pa.id = pal.audit_id AND pa.status in (2,3) and pal.audit_type = 1 and pal.is_latest = 1 and pal.audit_result = 1
+        LEFT JOIN post_audit_log pal1 ON pa.id = pal1.audit_id AND pa.status = 3 and pal1.audit_type = 2 and pal1.is_latest = 1 and pal1.audit_result = 1
+        LEFT JOIN post_audit_log pal2 ON pa.id = pal2.audit_id AND pa.status = 4 and pal2.audit_type in (1,2) and pal2.is_latest = 1 and pal2.audit_result = 2
+        LEFT JOIN post_audit_log pal3 ON pa.id = pal3.audit_id AND pa.status = 4 and pal3.audit_type = 1 and pal3.is_latest = 1 and pal3.audit_result = 2
+        LEFT JOIN post_audit_log pal4 ON pa.id = pal4.audit_id AND pa.status = 4 and pal4.audit_type = 2 and pal4.is_latest = 1 and pal4.audit_result = 2
         <where>
             <if test="id != null and id != ''">
                 AND pa.id = #{id}
             </if>
             <if test="userName != null and userName != ''">
-                AND COALESCE(u.userName, u3.userName, u2.userName) LIKE CONCAT('%', #{userName}, '%')
+                AND COALESCE(u.userName, u2.userName, u3.userName)  LIKE CONCAT('%', #{userName}, '%')
             </if>
             <if test="status != null">
                 AND pa.status = #{status}

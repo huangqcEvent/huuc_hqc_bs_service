@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.huuc.dto.ConfessionLogDTO;
 import com.huuc.pojo.ConfessionLog;
 import com.huuc.result.PageResult;
+import com.huuc.service.detail.data.ConfessionInfoData;
 import com.huuc.vo.ConfessionDetailVO;
 import com.huuc.vo.ConfessionLogVO;
 
@@ -22,4 +23,10 @@ public interface ConfessionLogService extends IService<ConfessionLog> {
      * 保存表白信息
      */
     void saveConfession(ConfessionLog confessionLog);
+
+    /**
+     * id详情管理端
+     */
+
+    ConfessionInfoData getDetailById1(String id);
 }

@@ -42,4 +42,27 @@
         </where>
         order by sort desc , create_time desc
     </select>
+    <select id="getDetailById1" resultType="com.huuc.service.detail.data.ClubRecruitmentNewsInfoData">
+        select
+            id,
+            title,
+            IF(type = 1,'纳新','公告') as type,
+            daily,
+            welfare,
+            claim,
+            number,
+            already,
+            IF(time_type = 1,'长期','限时') as timeType,
+            start_time,
+            end_time,
+            create_time,
+            sort,
+            image1,
+            image2,
+            image3
+        from
+            club_recruitment_news
+        where
+            id = #{id}
+    </select>
 </mapper>

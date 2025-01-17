@@ -5,6 +5,7 @@ import com.huuc.dto.DownLogPageDTO;
 import com.huuc.dto.IdentityPageDTO;
 import com.huuc.dto.UserPageDTO;
 import com.huuc.pojo.User;
+import com.huuc.service.detail.data.UserInfoData;
 import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,4 +19,6 @@ public interface UserMapper extends BaseMapper<User> {
     List<DownLogVO> downLogPage(DownLogPageDTO downLogPageDTO);
 
     List<IdentityUpdateVO> identityLogPage(IdentityPageDTO identityPageDto);
+
+    UserInfoData getInfoById(String userId);
 }

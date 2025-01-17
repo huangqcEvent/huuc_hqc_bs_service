@@ -9,7 +9,7 @@ import com.huuc.enums.DownEed;
 import com.huuc.enums.UserStateEnum;
 import com.huuc.exception.AccountNotFoundException;
 import com.huuc.exception.BaseException;
-import com.huuc.exception.PasswordErrorException;
+import com.huuc.exception.ResponseException;
 import com.huuc.pojo.DownLog;
 import com.huuc.pojo.User;
 import com.huuc.properties.JwtProperties;
@@ -69,7 +69,7 @@ public class LoginController{
                     .identity(user.getIdentity())
                     .build());
         }
-        throw new PasswordErrorException("密码错误");
+        throw new ResponseException("密码错误");
     }
 
     @ApiOperation(value = "普通用户注册")
@@ -92,7 +92,7 @@ public class LoginController{
                     .build());
             return AjaxResult.success("注册成功");
         }
-        throw new PasswordErrorException("用户名或密码不能为空");
+        throw new ResponseException("用户名或密码不能为空");
     }
 
     @ApiOperation(value = "退出")

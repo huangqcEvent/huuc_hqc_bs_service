@@ -3,6 +3,7 @@ package com.huuc.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.huuc.dto.ConfessionLogDTO;
 import com.huuc.pojo.ConfessionLog;
+import com.huuc.service.detail.data.ConfessionInfoData;
 import com.huuc.vo.ConfessionDetailVO;
 import com.huuc.vo.ConfessionLogVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +21,9 @@ public interface ConfessionLogMapper extends BaseMapper<ConfessionLog> {
      * 表白信息详情根据id查询
      */
     ConfessionDetailVO getDetailById(String id);
+
+    /**
+     * 管理端详情
+     */
+    ConfessionInfoData getDetailById1(String id);
 }

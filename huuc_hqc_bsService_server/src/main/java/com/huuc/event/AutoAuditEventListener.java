@@ -1,17 +1,10 @@
 package com.huuc.event;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.houbb.sensitive.word.bs.SensitiveWordBs;
-import com.huuc.enums.AuditStatusEnum;
-import com.huuc.enums.PostStatusEnum;
-import com.huuc.enums.PostTypeEnum;
-import com.huuc.pojo.ClubRecruitmentNews;
-import com.huuc.pojo.ConfessionLog;
-import com.huuc.pojo.LostItem;
-import com.huuc.pojo.PostAudit;
-import com.huuc.service.ClubRecruitmentNewsService;
-import com.huuc.service.ConfessionLogService;
-import com.huuc.service.LostItemService;
-import com.huuc.service.PostAuditService;
+import com.huuc.enums.*;
+import com.huuc.pojo.*;
+import com.huuc.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationListener;
@@ -34,6 +27,8 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
     private ClubRecruitmentNewsService clubRecruitmentNewsService;
     @Resource
     private SensitiveWordBs sensitiveWordBs;
+    @Resource
+    private PostAuditLogService postAuditLogService;
 
     @Override
     @Async
@@ -117,9 +112,26 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
 
     private void reject(PostAudit postAudit, Object post, PostTypeEnum postType) {
         postAudit.setStatus(AuditStatusEnum.AUDIT_STATUS_REJECT.getCode());
-        postAudit.setReason("内容包含敏感词，请规范用语");
-        postAudit.setAutoAuditTime(LocalDateTime.now());
         postAuditService.updateById(postAudit);
+
+        //一旦出现不通过的记录，就把之前所以的审批记录改为不是最新，因为会发起一个新流程
+        postAuditLogService.update(
+                new UpdateWrapper<PostAuditLog>()
+                        .eq("audit_id", postAudit.getId())
+                        .set("is_latest", AuditLogLatestEnum.AUDIT_LOG_LATEST_NO.getCode())
+        );
+
+        //机器审核不通过插入一条审批记录
+        postAuditLogService.save(
+                PostAuditLog.builder()
+                        .auditId(postAudit.getId())
+                        .auditType(AuditTypeEnum.AUDIT_TYPE_AUTO.getCode())
+                        .auditResult(AuditResultEnum.AUDIT_STATUS_REJECT.getCode())
+                        .auditTime(LocalDateTime.now())
+                        .isLatest(AuditLogLatestEnum.AUDIT_LOG_LATEST_YES.getCode())
+                        .auditRemark("内容包含敏感词")
+                        .build()
+        );
 
         switch (postType) {
             case POST_TYPE_CONFESSION:
@@ -139,7 +151,17 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
 
     private void pass(PostAudit postAudit) {
         postAudit.setStatus(AuditStatusEnum.AUDIT_STATUS_PENDING.getCode());
-        postAudit.setAutoAuditTime(LocalDateTime.now());
         postAuditService.updateById(postAudit);
+
+        postAuditLogService.save(
+                PostAuditLog.builder()
+                        .auditId(postAudit.getId())
+                        .auditType(AuditTypeEnum.AUDIT_TYPE_AUTO.getCode())
+                        .auditResult(AuditResultEnum.AUDIT_STATUS_PASS.getCode())
+                        .auditTime(LocalDateTime.now())
+                        .isLatest(AuditLogLatestEnum.AUDIT_LOG_LATEST_YES.getCode())
+                        .auditRemark("机器审核通过")
+                        .build()
+        );
     }
 }

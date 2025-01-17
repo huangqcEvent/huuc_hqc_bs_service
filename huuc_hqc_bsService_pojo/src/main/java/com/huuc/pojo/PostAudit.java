@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @TableName("post_audit")
 @ApiModel(value = "PostAudit对象", description = "帖子审核表")
@@ -27,18 +25,6 @@ public class PostAudit {
 
     @ApiModelProperty(value = "审核状态 1待审核 2通过 3待补正")
     private Integer status;
-
-    @ApiModelProperty(value = "不通过原因")
-    private String reason;
-
-    @ApiModelProperty(value = "机器审核时间")
-    private LocalDateTime autoAuditTime;
-
-    @ApiModelProperty(value = "人工审核时间")
-    private LocalDateTime auditTime;
-
-    @ApiModelProperty(value = "审核人id")
-    private String auditUserId;
 
     @ApiModelProperty(value = "发布类型")
     private Integer releaseType;
