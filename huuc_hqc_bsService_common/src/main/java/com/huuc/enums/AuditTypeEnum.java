@@ -4,12 +4,12 @@ import lombok.Getter;
 
 
 @Getter
-public enum AuditTypeEnum {
+public enum AuditTypeEnum implements BaseEnum{
     AUDIT_TYPE_AUTO(1, "机器审核"),
     AUDIT_TYPE_PEOPLE(2, "人工审核");
-    private final int code;
+    private final Integer code;
     private final String msg;
-    AuditTypeEnum(int code, String msg) {
+    AuditTypeEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

@@ -3,14 +3,14 @@ package com.huuc.enums;
 import lombok.Getter;
 
 @Getter
-public enum UserStateEnum {
+public enum UserStateEnum implements BaseEnum {
     USER_STATE_OK(1, "正常"),
     USER_STATE_DOWN(0, "停用");
 
-    private final int code;
+    private final Integer code;
     private final String msg;
 
-    UserStateEnum(int code, String msg) {
+    UserStateEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
