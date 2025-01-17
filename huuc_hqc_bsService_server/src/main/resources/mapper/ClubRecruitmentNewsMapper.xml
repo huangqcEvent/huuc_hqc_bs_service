@@ -2,4 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huuc.mapper.ClubRecruitmentNewsMapper">
+    <select id="getPage" resultType="com.huuc.vo.ClubPageVO">
+        select
+            crn.id,
+            crn.club_id,
+            crn.title,
+            crn.type,
+            crn.status,
+            crn.number,
+            crn.already,
+            crn.time_type,
+            crn.start_time,
+            crn.end_time,
+            crn.create_time,
+            crn.sort,
+            u.userName as clubName
+        from
+            club_recruitment_news crn
+                left join user u on crn.club_id = u.id
+        <where>
+            <if test="title != null and title != ''">
+                and crn.title like concat('%', #{title}, '%')
+            </if>
+            <if test="type != null">
+                and crn.type = #{type}
+            </if>
+            <if test="status != null">
+                and crn.status = #{status}
+            </if>
+            <if test="timeType != null">
+                and crn.time_type = #{timeType}
+            </if>
+            <if test="createTimeStart != null">
+                and crn.create_time &gt;= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                and crn.create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        order by sort desc , create_time desc
+    </select>
 </mapper>
