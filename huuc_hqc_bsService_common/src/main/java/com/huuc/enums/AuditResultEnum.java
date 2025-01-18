@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 审批结果
+ */
 @Getter
 public enum AuditResultEnum implements BaseEnum {
     AUDIT_STATUS_PASS(1, "通过"),

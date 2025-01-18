@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 审批记录是否是最新数据
+ */
 @Getter
 public enum AuditLogLatestEnum implements BaseEnum{
     AUDIT_LOG_LATEST_YES(1, "是"),

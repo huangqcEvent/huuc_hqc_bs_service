@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.huuc.enums.BaseEnum;
-import com.huuc.vo.GetMsg;
+import com.huuc.annotation.GetMsg;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.huuc.vo;
+package com.huuc.annotation;
 
 import com.huuc.enums.BaseEnum;
 

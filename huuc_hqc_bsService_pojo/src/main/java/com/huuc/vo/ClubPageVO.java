@@ -2,6 +2,10 @@ package com.huuc.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ClubTypeEnum;
+import com.huuc.enums.PostStatusEnum;
+import com.huuc.enums.TimeTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,9 +29,11 @@ public class ClubPageVO {
     private String title;
 
     @ApiModelProperty(value = "类型 1纳新 2公告", required = true)
+    @GetMsg(enumClass = ClubTypeEnum.class)
     private Integer type;
 
     @ApiModelProperty(value = "状态 1公开中 2私密 3删除 4待审核 5已招满", required = true)
+    @GetMsg(enumClass = PostStatusEnum.class)
     private Integer status;
 
     @ApiModelProperty(value = "计划纳新人数")
@@ -37,6 +43,7 @@ public class ClubPageVO {
     private Integer already;
 
     @ApiModelProperty(value = "时间类型 1长期 2限时")
+    @GetMsg(enumClass = TimeTypeEnum.class)
     private Integer timeType;
 
     @ApiModelProperty(value = "开始时间")

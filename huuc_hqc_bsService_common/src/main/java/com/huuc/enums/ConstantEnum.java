@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 用户身份类型
+ */
 @Getter
 public enum ConstantEnum implements BaseEnum {
     USER_IS_CLUB(2,"社团"),

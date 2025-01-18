@@ -30,7 +30,6 @@ public class Comment {
     private String imageUrl;
 
     @ApiModelProperty("评论时间")
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty("评论状态 1正常 2删除")

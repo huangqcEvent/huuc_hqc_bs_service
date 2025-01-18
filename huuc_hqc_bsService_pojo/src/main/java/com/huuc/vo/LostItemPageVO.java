@@ -1,5 +1,9 @@
 package com.huuc.vo;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ISYESEnum;
+import com.huuc.enums.LostItemEnum;
+import com.huuc.enums.PostStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,6 +29,7 @@ public class LostItemPageVO {
     private String itemName; // 失物名称
 
     @ApiModelProperty("类型 1寻物 2寻主")
+    @GetMsg(enumClass = LostItemEnum.class)
     private Integer type; // 类型 1寻物 2寻主
 
     @ApiModelProperty("失物描述")
@@ -43,8 +48,10 @@ public class LostItemPageVO {
     private String image1; // 图片1
 
     @ApiModelProperty("状态")
+    @GetMsg(enumClass = PostStatusEnum.class)
     private Integer status; //状态
 
     @ApiModelProperty("是否置顶")
+    @GetMsg(enumClass = ISYESEnum.class)
     private Integer isTop; //是否置顶
 }

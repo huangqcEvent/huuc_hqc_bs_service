@@ -1,5 +1,9 @@
 package com.huuc.vo;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ConfessionTypeEnum;
+import com.huuc.enums.ISYESEnum;
+import com.huuc.enums.PostStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,15 +31,19 @@ public class ConfessionLogVO {
 
     //复用返回
     @ApiModelProperty("类型")
+    @GetMsg(enumClass = ConfessionTypeEnum.class)
     private Integer type;
 
     @ApiModelProperty("状态")
+    @GetMsg(enumClass = PostStatusEnum.class)
     private Integer status;
 
     @ApiModelProperty("是否匿名")
+    @GetMsg(enumClass = ISYESEnum.class)
     private Integer isAnonymous;
 
     @ApiModelProperty("是否置顶")
+    @GetMsg(enumClass = ISYESEnum.class)
     private Integer isTop;
 
     @ApiModelProperty("真实姓名")

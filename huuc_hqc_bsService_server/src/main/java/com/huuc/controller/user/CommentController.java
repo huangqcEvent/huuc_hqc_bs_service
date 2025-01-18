@@ -15,6 +15,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,7 @@ public class CommentController {
     @CacheEvict(key = "#comment.getPostId()")
     public AjaxResult addComment(@RequestBody Comment comment) {
         comment.setUserId(BaseContext.getCurrentId());
+        comment.setCreateTime(LocalDateTime.now());
         boolean save = commentService.save(comment);
         return save ? AjaxResult.success("评论成功") : AjaxResult.error("评论失败,请稍后再试");
     }

@@ -1,5 +1,7 @@
 package com.huuc.vo;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ConfessionTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,7 +31,8 @@ public class ConfessionDetailVO {
     private String content;
 
     @ApiModelProperty("类型0找对象1表白")
-    private String typeStr;
+    @GetMsg(enumClass = ConfessionTypeEnum.class)
+    private Integer type;
 
     @ApiModelProperty("描述，要求")
     private String toUserInfo;

@@ -1,5 +1,7 @@
 package com.huuc.vo;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ConstantEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,10 +18,12 @@ public class IdentityUpdateVO {
     private String userName;
 
     @ApiModelProperty("修改前身份")
-    private int oldIdentity;
+    @GetMsg(enumClass = ConstantEnum.class)
+    private Integer oldIdentity;
 
     @ApiModelProperty("修改后身份")
-    private int newIdentity;
+    @GetMsg(enumClass = ConstantEnum.class)
+    private Integer newIdentity;
 
     @ApiModelProperty("更新时间")
     private LocalDateTime updateTime;

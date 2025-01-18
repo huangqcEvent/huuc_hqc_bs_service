@@ -58,10 +58,7 @@
             cl.content,
             cl.to_user_info,
             cl.create_time,
-            CASE
-                WHEN cl.type = 0 THEN '找对象'
-                ELSE '表白'
-            END AS typeStr,
+            cl.type,
             cl.image_1 as image1,
             cl.image_2 as image2,
             cl.image_3 as image3
@@ -78,10 +75,7 @@
             content,
             to_user_info,
             create_time,
-            CASE
-                WHEN type = 1 THEN '找对象'
-                ELSE '表白'
-                END AS typeStr,
+            type,
             image_1,
             image_2,
             image_3

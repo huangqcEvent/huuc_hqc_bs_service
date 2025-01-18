@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 帖子状态
+ */
 @Getter
 public enum PostStatusEnum implements BaseEnum {
     POST_STATUS_NORMAL(1, "发布"),

@@ -1,5 +1,7 @@
 package com.huuc.vo;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.DownEed;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +25,8 @@ public class DownLogVO {
     private String downAdminName;
 
     @ApiModelProperty("是否解封")
-    private int downEnd;
+    @GetMsg(enumClass = DownEed.class)
+    private Integer downEnd;
 
     @ApiModelProperty("解封时间")
     private String downEndTime;

@@ -1,6 +1,9 @@
 package com.huuc.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ConstantEnum;
+import com.huuc.enums.UserStateEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -28,7 +31,8 @@ public class User {
 
     @ApiModelProperty("用户身份")
     @TableField("identity")
-    private int identity;
+    @GetMsg(enumClass = ConstantEnum.class)
+    private Integer identity;
 
     @ApiModelProperty("用户头像路径")
     @TableField("head")
@@ -40,5 +44,6 @@ public class User {
 
     @ApiModelProperty("账号 0正常 1停用")
     @TableField("state")
-    private int state;
+    @GetMsg(enumClass = UserStateEnum.class)
+    private Integer state;
 }

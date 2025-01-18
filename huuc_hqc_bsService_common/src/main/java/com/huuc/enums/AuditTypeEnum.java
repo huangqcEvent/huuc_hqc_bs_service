@@ -2,7 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
-
+/**
+ * 审核类型
+ */
 @Getter
 public enum AuditTypeEnum implements BaseEnum{
     AUDIT_TYPE_AUTO(1, "机器审核"),

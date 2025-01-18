@@ -1,6 +1,7 @@
 package com.huuc.vo;
 
-import com.huuc.enums.PostSubTypeEnum;
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.LostItemEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class LostItemDetailVO {
     private String itemName; // 失物名称
 
     @ApiModelProperty("类型 1寻物 2寻主")
-    @GetMsg(enumClass = PostSubTypeEnum.class)
+    @GetMsg(enumClass = LostItemEnum.class)
     private Integer type; // 类型 1寻物 2寻主
 
     @ApiModelProperty("失物描述")

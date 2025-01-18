@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 封禁记录状态
+ */
 @Getter
 public enum DownEed implements BaseEnum {
     DOWN_END_TRUE(1, "已解封"),

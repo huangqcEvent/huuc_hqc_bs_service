@@ -2,6 +2,9 @@ package com.huuc.enums;
 
 import lombok.Getter;
 
+/**
+ * 审核状态
+ */
 @Getter
 public enum AuditStatusEnum implements BaseEnum{
     AUDIT_STATUS_AUTO(1, "自动敏感词审核"),

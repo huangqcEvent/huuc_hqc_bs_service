@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.Objects;
 
+/**
+ * 帖子类型
+ */
 @Getter
 public enum PostTypeEnum implements BaseEnum{
     POST_TYPE_CONFESSION(1, "表白墙贴"),
