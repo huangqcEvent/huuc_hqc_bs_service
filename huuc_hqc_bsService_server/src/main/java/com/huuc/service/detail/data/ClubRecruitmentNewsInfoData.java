@@ -1,5 +1,8 @@
 package com.huuc.service.detail.data;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ClubTypeEnum;
+import com.huuc.enums.TimeTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,7 +20,8 @@ public class ClubRecruitmentNewsInfoData {
     private String title;
 
     @ApiModelProperty(value = "类型 1纳新 2公告")
-    private String type;
+    @GetMsg(enumClass = ClubTypeEnum.class)
+    private Integer type;
 
     @ApiModelProperty(value = "社团工作")
     private String daily;
@@ -35,7 +39,8 @@ public class ClubRecruitmentNewsInfoData {
     private Integer already;
 
     @ApiModelProperty(value = "时间类型 1长期 2限时")
-    private String timeType;
+    @GetMsg(enumClass = TimeTypeEnum.class)
+    private Integer timeType;
 
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;

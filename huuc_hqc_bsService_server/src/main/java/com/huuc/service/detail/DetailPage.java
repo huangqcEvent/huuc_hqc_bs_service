@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -42,11 +43,11 @@ public class DetailPage {
                             detailVo.setAuditInfo((List<AuditInfoData>) module.getData(params));
                             break;
                         case "PostInfoModule":
-                            if (params.getPostType() == PostTypeEnum.POST_TYPE_CONFESSION.getCode()){
+                            if (Objects.equals(params.getPostType(), PostTypeEnum.POST_TYPE_CONFESSION.getCode())){
                                 detailVo.setConfessionInfo((ConfessionInfoData) module.getData(params));
-                            } else if (params.getPostType() == PostTypeEnum.POST_TYPE_ITEM.getCode()){
+                            } else if (Objects.equals(params.getPostType(), PostTypeEnum.POST_TYPE_ITEM.getCode())){
                                 detailVo.setLostItemInfo((LostItemInfoData) module.getData(params));
-                            } else if (params.getPostType() == PostTypeEnum.POST_TYPE_CLUB.getCode()){
+                            } else if (Objects.equals(params.getPostType(), PostTypeEnum.POST_TYPE_CLUB.getCode())){
                                 detailVo.setClubRecruitmentNewsInfo((ClubRecruitmentNewsInfoData) module.getData(params));
                             }
                             break;

@@ -1,8 +1,12 @@
 package com.huuc.service.detail.data;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.ConfessionTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @ApiModel(value = "表白信息详情查询")
 @Data
@@ -11,7 +15,7 @@ public class ConfessionInfoData {
     private String id;
 
     @ApiModelProperty("发布时间")
-    private String createTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("标题")
     private String title;
@@ -23,7 +27,8 @@ public class ConfessionInfoData {
     private String content;
 
     @ApiModelProperty("类型0找对象1表白")
-    private String typeStr;
+    @GetMsg(enumClass = ConfessionTypeEnum.class)
+    private Integer type;
 
     @ApiModelProperty("描述，要求")
     private String toUserInfo;

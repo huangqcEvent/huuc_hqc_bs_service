@@ -60,7 +60,7 @@
     <select id="getDetailById1" resultType="com.huuc.service.detail.data.LostItemInfoData">
         select id,
                item_name,
-               IF(type = 1, '寻物', '寻主') as type,
+               type,
                item_desc,
                location,
                phone,

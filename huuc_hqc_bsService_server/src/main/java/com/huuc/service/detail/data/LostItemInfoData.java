@@ -1,5 +1,7 @@
 package com.huuc.service.detail.data;
 
+import com.huuc.annotation.GetMsg;
+import com.huuc.enums.LostItemEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +18,8 @@ public class LostItemInfoData {
     private String itemName;
 
     @ApiModelProperty("类型 1寻物 2寻主")
-    private String type;
+    @GetMsg(enumClass = LostItemEnum.class)
+    private Integer type;
 
     @ApiModelProperty("失物描述")
     private String itemDesc;

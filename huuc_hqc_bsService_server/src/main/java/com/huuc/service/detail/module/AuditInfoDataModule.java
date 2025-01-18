@@ -1,8 +1,6 @@
 package com.huuc.service.detail.module;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.huuc.enums.AuditResultEnum;
-import com.huuc.enums.AuditTypeEnum;
 import com.huuc.exception.ResponseException;
 import com.huuc.pojo.PostAudit;
 import com.huuc.pojo.PostAuditLog;
@@ -40,9 +38,9 @@ public class AuditInfoDataModule implements GetDetailModule<List<AuditInfoData>>
         return postAuditLogService.list(queryWrapper1).stream().map(postAuditLog ->
                 AuditInfoData.builder()
                         .auditUserName(postAuditLog.getAuditUser())
-                        .auditType(postAuditLog.getAuditType() == AuditTypeEnum.AUDIT_TYPE_AUTO.getCode()?AuditTypeEnum.AUDIT_TYPE_AUTO.getMsg():AuditTypeEnum.AUDIT_TYPE_PEOPLE.getMsg())
-                        .auditTime(postAuditLog.getAuditTime().toString())
-                        .auditStatus(postAuditLog.getAuditResult() == AuditResultEnum.AUDIT_STATUS_PASS.getCode()?AuditResultEnum.AUDIT_STATUS_PASS.getMsg():AuditResultEnum.AUDIT_STATUS_REJECT.getMsg())
+                        .auditType(postAuditLog.getAuditType())
+                        .auditTime(postAuditLog.getAuditTime())
+                        .auditResult(postAuditLog.getAuditResult())
                         .auditReason(postAuditLog.getAuditRemark())
                 .build()
         ).collect(Collectors.toList());
