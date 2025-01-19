@@ -1,5 +1,6 @@
 package com.huuc.controller.admin;
 
+import com.huuc.dto.AuditDTO;
 import com.huuc.dto.AuditPageDTO;
 import com.huuc.result.AjaxResult;
 import com.huuc.result.PageResult;
@@ -45,5 +46,15 @@ public class AuditController {
     public AjaxResult getDetail(@RequestBody DetailParams params) {
         DetailPageBuilder detailPageBuilder = new DetailPageBuilder(auditInfoDataModule,postInfoModule,userInfoModule);
         return AjaxResult.success(detailPageBuilder.build().getAllData(params));
+    }
+
+    @ApiModelProperty(value = "人工审核")
+    @PostMapping
+    public AjaxResult audit(@RequestBody AuditDTO auditDTO) {
+        if (auditDTO == null){
+            return AjaxResult.error("参数不能为空");
+        }
+        postAuditService.audit(auditDTO);
+        return AjaxResult.success("审核成功");
     }
 }

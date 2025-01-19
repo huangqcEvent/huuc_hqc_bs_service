@@ -20,11 +20,6 @@ public interface ConfessionLogService extends IService<ConfessionLog> {
     ConfessionDetailVO getDetailById(String id);
 
     /**
-     * 保存表白信息
-     */
-    void saveConfession(ConfessionLog confessionLog);
-
-    /**
      * id详情管理端
      */
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -38,7 +39,7 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
             log.info("收到审核事件，开始审核流水号: {}", id);
 
             PostAudit postAudit = postAuditService.getById(id);
-            if (postAudit.getStatus() != AuditStatusEnum.AUDIT_STATUS_AUTO.getCode()) {
+            if (!Objects.equals(postAudit.getStatus(), AuditStatusEnum.AUDIT_STATUS_AUTO.getCode())) {
                 return;
             }
 
@@ -47,6 +48,12 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
                 log.warn("未知的帖子类型: {}", postAudit.getPostType());
                 return;
             }
+            //重新开始了，然后把之前的审批记录改为不是最新，因为会发起一个新流程
+            postAuditLogService.update(
+                    new UpdateWrapper<PostAuditLog>()
+                            .eq("audit_id", postAudit.getId())
+                            .set("is_latest", AuditLogLatestEnum.AUDIT_LOG_LATEST_NO.getCode())
+            );
 
             handlePostAudit(postAudit, postType);
         } catch (Exception e) {
@@ -110,16 +117,16 @@ public class AutoAuditEventListener implements ApplicationListener<AutoAuditEven
         }
     }
 
-    private void reject(PostAudit postAudit, Object post, PostTypeEnum postType) {
+    public void reject(PostAudit postAudit, Object post, PostTypeEnum postType) {
         postAudit.setStatus(AuditStatusEnum.AUDIT_STATUS_REJECT.getCode());
         postAuditService.updateById(postAudit);
 
-        //一旦出现不通过的记录，就把之前所以的审批记录改为不是最新，因为会发起一个新流程
-        postAuditLogService.update(
-                new UpdateWrapper<PostAuditLog>()
-                        .eq("audit_id", postAudit.getId())
-                        .set("is_latest", AuditLogLatestEnum.AUDIT_LOG_LATEST_NO.getCode())
-        );
+//        //一旦出现不通过的记录，就把之前所以的审批记录改为不是最新，因为会发起一个新流程
+//        postAuditLogService.update(
+//                new UpdateWrapper<PostAuditLog>()
+//                        .eq("audit_id", postAudit.getId())
+//                        .set("is_latest", AuditLogLatestEnum.AUDIT_LOG_LATEST_NO.getCode())
+//        );
 
         //机器审核不通过插入一条审批记录
         postAuditLogService.save(

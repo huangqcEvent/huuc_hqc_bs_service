@@ -1,6 +1,7 @@
 package com.huuc.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.huuc.dto.AuditDTO;
 import com.huuc.dto.AuditPageDTO;
 import com.huuc.pojo.PostAudit;
 import com.huuc.result.PageResult;
@@ -10,4 +11,6 @@ public interface PostAuditService extends IService<PostAudit> {
     PageResult<AuditPageVO> getPage(AuditPageDTO params);
 
     void saveAutoAudit(String postId, Integer postType, Integer releaseType);
+
+    void audit(AuditDTO auditDTO);
 }

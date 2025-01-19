@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum AuditLogLatestEnum implements BaseEnum{
     AUDIT_LOG_LATEST_YES(1, "是"),
-    AUDIT_LOG_LATEST_NO(2, "否");
+    AUDIT_LOG_LATEST_NO(0, "否");
 
     private final Integer code;
     private final String msg;
