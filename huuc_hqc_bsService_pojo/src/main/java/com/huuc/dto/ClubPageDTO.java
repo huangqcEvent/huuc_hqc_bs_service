@@ -14,6 +14,9 @@ public class ClubPageDTO extends PageDTO {
     @ApiModelProperty(value = "标题")
     private String title;
 
+    @ApiModelProperty(value = "社团名称")
+    private String clubName;
+
     @ApiModelProperty(value = "类型 1纳新 2公告")
     private Integer type;
 

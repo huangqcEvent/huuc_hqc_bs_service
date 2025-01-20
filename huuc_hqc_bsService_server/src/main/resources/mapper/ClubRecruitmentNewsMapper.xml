@@ -33,11 +33,14 @@
             <if test="timeType != null">
                 and crn.time_type = #{timeType}
             </if>
-            <if test="createTimeStart != null">
+            <if test="createTimeStart != null and createTimeStart != ''">
                 and crn.create_time &gt;= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
+            <if test="createTimeEnd != null and createTimeEnd != ''">
                 and crn.create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="clubName != null and clubName != ''">
+                and u.userName like concat('%', #{clubName}, '%')
             </if>
         </where>
         order by sort desc , create_time desc
