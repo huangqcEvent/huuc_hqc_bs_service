@@ -40,7 +40,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")//拦截路径
                 .addPathPatterns("/user/**")
-                .excludePathPatterns("/common/**").excludePathPatterns("/user/lostItem/detail/**");
+                .excludePathPatterns("/common/**");
     }
 
     /**
