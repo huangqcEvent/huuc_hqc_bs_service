@@ -12,6 +12,7 @@ import com.huuc.pojo.ClubRecruitmentNews;
 import com.huuc.result.PageResult;
 import com.huuc.service.ClubRecruitmentNewsService;
 import com.huuc.service.detail.data.ClubRecruitmentNewsInfoData;
+import com.huuc.vo.ClubDetailVO;
 import com.huuc.vo.ClubPageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,11 @@ public class ClubRecruitmentNewsServiceImpl extends ServiceImpl<ClubRecruitmentN
         Page<ClubPageVO> pageResult = (Page<ClubPageVO>) baseMapper.getPage(clubPageDTO);
 
         return new PageResult<>(pageResult.getTotal(), pageResult.getResult());
+    }
+
+    @Override
+    public ClubDetailVO getDetailById(String postId) {
+        return baseMapper.getDetailById(postId);
     }
 
     @Override

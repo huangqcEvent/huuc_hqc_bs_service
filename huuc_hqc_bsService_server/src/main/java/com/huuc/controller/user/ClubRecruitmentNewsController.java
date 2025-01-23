@@ -32,4 +32,10 @@ public class ClubRecruitmentNewsController {
             postAuditService.saveAutoAudit(clubRecruitmentNews.getId(), PostTypeEnum.POST_TYPE_CLUB.getCode(),releaseType);
         return AjaxResult.success("提交成功，审核通过后将发布");
     }
+
+    @GetMapping("/getDetail/{id}")
+    @ApiModelProperty("社团纳新/公告详情")
+    public AjaxResult getDetailById(@PathVariable("id") String id){
+        return AjaxResult.success(clubRecruitmentNewsService.getDetailById(id));
+    }
 }
