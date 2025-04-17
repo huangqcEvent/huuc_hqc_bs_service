@@ -18,7 +18,7 @@ public class Comment {
     private String postId;
 
     @ApiModelProperty("帖子类型 1表白 2寻物 3社团")
-    private String postType;
+    private Integer postType;
 
     @ApiModelProperty("用户id")
     private String userId;

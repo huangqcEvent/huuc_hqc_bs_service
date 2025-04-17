@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * WebSocket服务
@@ -141,5 +142,15 @@ public class WebSocketServer implements WebSocketHandler {
         } else {
             log.error("RedisTemplate为空，无法存储离线消息");
         }
+    }
+
+    /**
+     * 获取当前所有在线用户的sid
+     *
+     * @return 当前所有在线用户的 sid 列表
+     */
+    public List<String> getAllOnlineSids() {
+        return sessionMap.keySet().stream()
+                .collect(Collectors.toList());  // 返回所有在线用户的sid列表
     }
 }

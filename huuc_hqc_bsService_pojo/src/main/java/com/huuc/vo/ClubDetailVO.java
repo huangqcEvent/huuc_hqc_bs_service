@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @ApiModel(description = "社团纳新/公告表详情")
 public class ClubDetailVO {
@@ -52,13 +50,13 @@ public class ClubDetailVO {
     private Integer timeType;
 
     @ApiModelProperty(value = "开始时间")
-    private LocalDateTime startTime;
+    private String startTime;
 
     @ApiModelProperty(value = "结束时间")
-    private LocalDateTime endTime;
+    private String endTime;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private String createTime;
 
     @ApiModelProperty("图片1")
     private String image1;

@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @ApiModel(value = "寻物贴详情返回", description = "寻物贴详情返回")
 @Data
 public class LostItemDetailVO {
@@ -40,7 +38,7 @@ public class LostItemDetailVO {
     private String phone; // 联系方式（电话）
 
     @ApiModelProperty("发布时间")
-    private LocalDateTime createTime; // 发布时间
+    private String createTime; // 发布时间
 
     @ApiModelProperty("图片1")
     private String image1; // 图片1
