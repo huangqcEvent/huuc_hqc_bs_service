@@ -61,16 +61,19 @@
             time_type,
             start_time,
             end_time,
-            create_time,
+            crn.create_time,
             sort,
             image1,
             image2,
-            image3
+            image3,
+            pi.is_liked,
+            pi.is_favored
         from
             club_recruitment_news crn
         left join user u on crn.club_id = u.id
+        left join post_interaction pi on pi.user_id = #{userId} and pi.post_id = crn.id and pi.post_type = 3
         where
-            crn.id = #{id}
+            crn.id = #{postId}
     </select>
 
     <select id="getDetailById1" resultType="com.huuc.service.detail.data.ClubRecruitmentNewsInfoData">
@@ -94,6 +97,6 @@
         from
             club_recruitment_news crn
         where
-            crn.id = #{id}
+            crn.id = #{postId}
     </select>
 </mapper>

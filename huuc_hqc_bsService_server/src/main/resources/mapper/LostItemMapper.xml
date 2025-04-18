@@ -39,22 +39,24 @@
         order by is_top desc, create_time desc
     </select>
     <select id="getDetailById" resultType="com.huuc.vo.LostItemDetailVO">
-        select
-            li.id,
-            li.user_id,
-            u.userName,
-            u.head,
-            li.item_name,
-            li.type,
-            li.item_desc,
-            li.location,
-            li.phone,
-            li.create_time,
-            li.image1,
-            li.image2,
-            li.image3
+        select li.id,
+               li.user_id,
+               u.userName,
+               u.head,
+               li.item_name,
+               li.type,
+               li.item_desc,
+               li.location,
+               li.phone,
+               li.create_time,
+               li.image1,
+               li.image2,
+               li.image3,
+               pi.is_liked,
+               pi.is_favored
         from lost_item li
-        left join user u on u.id = li.user_id
+                 left join user u on u.id = li.user_id
+                 left join post_interaction pi on pi.user_id = #{userId} and pi.post_id = li.id and pi.post_type = 2
         where li.id = #{id}
     </select>
     <select id="getDetailById1" resultType="com.huuc.service.detail.data.LostItemInfoData">

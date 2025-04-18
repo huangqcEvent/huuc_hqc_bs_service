@@ -45,4 +45,10 @@ public class ConfessionDetailVO {
 
     @ApiModelProperty("图片3")
     private String image3;
+
+    @ApiModelProperty("是否点赞")
+    private Integer isLiked;
+
+    @ApiModelProperty("是否评论")
+    private Integer isFavored;
 }

@@ -3,6 +3,7 @@ package com.huuc.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.huuc.context.BaseContext;
 import com.huuc.dto.ConfessionLogDTO;
 import com.huuc.mapper.ConfessionLogMapper;
 import com.huuc.pojo.ConfessionLog;
@@ -27,7 +28,7 @@ public class ConfessionLogServiceImpl extends ServiceImpl<ConfessionLogMapper, C
 
     @Override
     public ConfessionDetailVO getDetailById(String id) {
-        return baseMapper.getDetailById(id);
+        return baseMapper.getDetailById(id, BaseContext.getCurrentId());
     }
 
     @Override

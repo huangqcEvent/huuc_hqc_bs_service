@@ -16,5 +16,5 @@ public interface ClubRecruitmentNewsMapper extends BaseMapper<ClubRecruitmentNew
 
     ClubRecruitmentNewsInfoData getDetailById1(String postId);
 
-    ClubDetailVO getDetailById(String postId);
+    ClubDetailVO getDetailById(@Param("postId") String postId, @Param("userId") String userId);
 }

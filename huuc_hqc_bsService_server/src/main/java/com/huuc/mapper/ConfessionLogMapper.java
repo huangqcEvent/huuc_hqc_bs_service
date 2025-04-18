@@ -7,6 +7,7 @@ import com.huuc.service.detail.data.ConfessionInfoData;
 import com.huuc.vo.ConfessionDetailVO;
 import com.huuc.vo.ConfessionLogVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface ConfessionLogMapper extends BaseMapper<ConfessionLog> {
     /**
      * 表白信息详情根据id查询
      */
-    ConfessionDetailVO getDetailById(String id);
+    ConfessionDetailVO getDetailById(@Param("id") String id, @Param("userId") String userId);
 
     /**
      * 管理端详情

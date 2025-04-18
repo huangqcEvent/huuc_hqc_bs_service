@@ -61,9 +61,12 @@
             cl.type,
             cl.image_1 as image1,
             cl.image_2 as image2,
-            cl.image_3 as image3
+            cl.image_3 as image3,
+            pi.is_liked,
+            pi.is_favored
         from confession_log cl
         left join user u on cl.user_id = u.id
+        left join post_interaction pi on pi.user_id = #{userId} and pi.post_id = cl.id and pi.post_type = 1
         where cl.id = #{id}
     </select>
 

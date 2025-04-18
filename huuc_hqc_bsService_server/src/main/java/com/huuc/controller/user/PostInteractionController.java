@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("user/postInteraction")
+@RequestMapping("/user/postInteraction")
 @AllArgsConstructor
 @Slf4j
 @Api(tags = "点赞收藏评论记录，协同过滤")
@@ -37,8 +37,8 @@ public class PostInteractionController {
     private final LostItemService lostItemService;
     private final ClubRecruitmentNewsService clubRecruitmentNewsService;
 
-    @PostMapping("/liked")
-    public AjaxResult liked(@RequestBody UpdateStatusDTO updateStatusDTO) {
+    @PostMapping("/likedOrCollect")
+    public AjaxResult likedOrCollect(@RequestBody UpdateStatusDTO updateStatusDTO) {
         postInteractionService.updateStatus(updateStatusDTO);
         return AjaxResult.success("操作成功");
     }

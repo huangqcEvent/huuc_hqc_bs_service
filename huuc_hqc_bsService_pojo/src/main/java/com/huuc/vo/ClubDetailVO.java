@@ -66,4 +66,10 @@ public class ClubDetailVO {
 
     @ApiModelProperty("图片3")
     private String image3;
+
+    @ApiModelProperty("是否点赞")
+    private Integer isLiked;
+
+    @ApiModelProperty("是否收藏")
+    private Integer isFavored;
 }

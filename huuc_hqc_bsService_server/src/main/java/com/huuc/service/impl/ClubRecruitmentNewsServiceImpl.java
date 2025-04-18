@@ -49,7 +49,7 @@ public class ClubRecruitmentNewsServiceImpl extends ServiceImpl<ClubRecruitmentN
 
     @Override
     public ClubDetailVO getDetailById(String postId) {
-        return baseMapper.getDetailById(postId);
+        return baseMapper.getDetailById(postId, BaseContext.getCurrentId());
     }
 
     @Override

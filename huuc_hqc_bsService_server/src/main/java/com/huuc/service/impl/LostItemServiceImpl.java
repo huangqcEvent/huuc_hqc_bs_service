@@ -3,6 +3,7 @@ package com.huuc.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.huuc.context.BaseContext;
 import com.huuc.dto.LostItemPageDTO;
 import com.huuc.mapper.LostItemMapper;
 import com.huuc.pojo.LostItem;
@@ -27,7 +28,7 @@ public class LostItemServiceImpl extends ServiceImpl<LostItemMapper, LostItem> i
 
     @Override
     public LostItemDetailVO getDetailById(String id) {
-        return baseMapper.getDetailById(id);
+        return baseMapper.getDetailById(id, BaseContext.getCurrentId());
     }
 
     @Override

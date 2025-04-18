@@ -7,6 +7,7 @@ import com.huuc.service.detail.data.LostItemInfoData;
 import com.huuc.vo.LostItemDetailVO;
 import com.huuc.vo.LostItemPageVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface LostItemMapper extends BaseMapper<LostItem> {
     List<LostItemPageVO> lostPage(LostItemPageDTO lostItemPageDTO);
 
-    LostItemDetailVO getDetailById(String id);
+    LostItemDetailVO getDetailById(@Param("id") String id,@Param("userId") String userId);
 
     LostItemInfoData getDetailById1(String id);
 }
