@@ -13,4 +13,6 @@ public interface PostAuditService extends IService<PostAudit> {
     void saveAutoAudit(String postId, Integer postType, Integer releaseType);
 
     void audit(AuditDTO auditDTO);
+
+    PostAudit getOne(String postId, Integer postType);
 }

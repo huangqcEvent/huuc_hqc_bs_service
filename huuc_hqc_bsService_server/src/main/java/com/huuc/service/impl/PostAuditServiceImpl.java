@@ -1,5 +1,6 @@
 package com.huuc.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
@@ -52,6 +53,7 @@ public class PostAuditServiceImpl extends ServiceImpl<PostAuditMapper, PostAudit
 
     @Override
     public void saveAutoAudit(String postId, Integer postType,Integer releaseType) {
+        //判断是否已经有审核记录了
         PostAudit postAudit = PostAudit.builder()
                 .postId(postId)
                 .releaseType(releaseType)
@@ -177,5 +179,16 @@ public class PostAuditServiceImpl extends ServiceImpl<PostAuditMapper, PostAudit
         }
     }
 
-
+    @Override
+    public PostAudit getOne(String postId, Integer postType) {
+        LambdaQueryWrapper<PostAudit> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(PostAudit::getPostId,postId).eq(
+                PostAudit::getPostType,postType
+        );
+        PostAudit postAudit = this.getOne(lambdaQueryWrapper);
+        if (postAudit == null){
+            throw new ResponseException("重新发起流程失败，未查询到相关审核记录");
+        }
+        return postAudit;
+    }
 }
