@@ -6,7 +6,10 @@ import com.huuc.pojo.User;
 import com.huuc.result.PageResult;
 import com.huuc.service.detail.data.UserInfoData;
 import com.huuc.vo.DownLogVO;
+import com.huuc.vo.AllPostVO;
 import com.huuc.vo.IdentityUpdateVO;
+
+import java.util.List;
 
 public interface UserService extends IService<User> {
     /**
@@ -38,4 +41,6 @@ public interface UserService extends IService<User> {
      * 根据id获取信息
      */
     UserInfoData getInfoById(String userId);
+
+    List<AllPostVO> getAllPost();
 }

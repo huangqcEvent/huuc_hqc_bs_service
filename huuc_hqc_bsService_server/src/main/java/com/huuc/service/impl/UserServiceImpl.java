@@ -15,6 +15,7 @@ import com.huuc.service.DownLogService;
 import com.huuc.service.UserIdentityUpdateLogService;
 import com.huuc.service.UserService;
 import com.huuc.service.detail.data.UserInfoData;
+import com.huuc.vo.AllPostVO;
 import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -62,6 +64,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfoData getInfoById(String userId) {
         return baseMapper.getInfoById(userId);
+    }
+
+    @Override
+    public List<AllPostVO> getAllPost() {
+        return baseMapper.getAllPost(BaseContext.getCurrentId());
     }
 
     @Override

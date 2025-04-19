@@ -85,6 +85,7 @@
     </if>
 </where>
     </select>
+
     <select id="getInfoById" resultType="com.huuc.service.detail.data.UserInfoData">
         select
             id as userId,
@@ -92,6 +93,57 @@
             head as userHead
         from user
         where id = #{userId}
+    </select>
+
+    <select id="getAllPost" resultType="com.huuc.vo.AllPostVO">
+        -- 表白墙数据，固定类型为1
+        SELECT
+            id AS postId,
+            1 AS postType,  -- 固定类型标识
+            title AS name,
+            FLOOR(RAND() * 101) AS value
+        FROM confession_log
+        WHERE user_id = #{userId}
+
+        UNION ALL
+
+        -- 失物招领数据，固定类型为2
+        SELECT
+            id AS postId,
+            2 AS postType,  -- 固定类型标识
+            item_name AS name,
+            FLOOR(RAND() * 101) AS value
+        FROM lost_item
+        WHERE user_id = #{userId}
+
+        UNION ALL
+
+        -- 社团招新数据，固定类型为3
+        SELECT
+            id AS postId,
+            3 AS postType,  -- 固定类型标识
+            title AS name,
+            FLOOR(RAND() * 101) AS value
+        FROM club_recruitment_news
+        WHERE club_id = #{userId}
+
+        UNION ALL
+
+        -- 互动数据保持原类型标识
+        SELECT
+            pi.post_id AS postId,
+            pi.post_type AS postType,
+            COALESCE(
+                    cl.title,
+                    li.item_name,
+                    crn.title
+            ) AS name,
+            FLOOR(RAND() * 101) AS value
+        FROM post_interaction pi
+                 LEFT JOIN confession_log cl ON pi.post_id = cl.id AND pi.post_type = 1
+                 LEFT JOIN lost_item li ON pi.post_id = li.id AND pi.post_type = 2
+                 LEFT JOIN club_recruitment_news crn ON pi.post_id = crn.id AND pi.post_type = 3
+        WHERE pi.user_id = #{userId}
     </select>
 
 </mapper>
