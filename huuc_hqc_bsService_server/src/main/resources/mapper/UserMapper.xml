@@ -146,4 +146,91 @@
         WHERE pi.user_id = #{userId}
     </select>
 
+    <select id="getMyPostPage" resultType="com.huuc.vo.MyPostVO">
+        SELECT
+            id AS postId,
+            1 AS postType,  -- 固定类型标识
+            type AS postSubType,
+            title,
+            status,
+            create_time
+        FROM confession_log
+        WHERE user_id = #{userId}
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        UNION ALL
+        -- 失物招领数据，固定类型为2
+        SELECT
+            id AS postId,
+            2 AS postType,  -- 固定类型标识
+            type AS postSubType,
+            item_name AS title,
+            status,
+            create_time
+        FROM lost_item
+        WHERE user_id = #{userId}
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        UNION ALL
+        -- 社团招新数据，固定类型为3
+        SELECT
+            id AS postId,
+            3 AS postType,  -- 固定类型标识
+            type AS postSubType,
+            title,
+            status,
+            create_time
+        FROM club_recruitment_news
+        WHERE club_id = #{userId}
+        <if test="status != null">
+            and status = #{status}
+        </if>
+    </select>
+
+    <select id="getMyLiked" resultType="com.huuc.vo.MyPostVO">
+        select
+            pi.post_id,
+            pi.post_type,
+            COALESCE(cl.type, li.type, crn.type) as postSubType,
+            COALESCE(cl.title, li.item_name, crn.title) as title,
+            COALESCE(cl.create_time, li.create_time, crn.create_time) as createTime
+        from post_interaction pi
+        left join confession_log cl on pi.post_id = cl.id and pi.post_type = 1
+        left join lost_item li on pi.post_id = li.id and pi.post_type = 2
+        left join club_recruitment_news crn on pi.post_id = crn.id and pi.post_type = 3
+        where pi.user_id = #{userId} and pi.is_liked = 1
+    </select>
+
+    <select id="getMyFavored" resultType="com.huuc.vo.MyPostVO">
+        select
+            pi.post_id,
+            pi.post_type,
+            COALESCE(cl.type, li.type, crn.type) as postSubType,
+            COALESCE(cl.title, li.item_name, crn.title) as title,
+            COALESCE(cl.create_time, li.create_time, crn.create_time) as createTime
+        from post_interaction pi
+                 left join confession_log cl on pi.post_id = cl.id and pi.post_type = 1
+                 left join lost_item li on pi.post_id = li.id and pi.post_type = 2
+                 left join club_recruitment_news crn on pi.post_id = crn.id and pi.post_type = 3
+        where pi.user_id = #{userId} and pi.is_favored = 1
+    </select>
+
+    <select id="getMyComment" resultType="com.huuc.vo.MyPostVO">
+        select
+            co.post_id,
+            co.post_type,
+            co.content,
+            co.image_url,
+            co.create_time,
+            COALESCE(cl.type, li.type, crn.type) as postSubType,
+            COALESCE(cl.title, li.item_name, crn.title) as title
+        from comment co
+                 left join confession_log cl on co.post_id = cl.id and co.post_type = 1
+                 left join lost_item li on co.post_id = li.id and co.post_type = 2
+                 left join club_recruitment_news crn on co.post_id = crn.id and co.post_type = 3
+        where co.user_id = #{userId}
+    </select>
+
 </mapper>

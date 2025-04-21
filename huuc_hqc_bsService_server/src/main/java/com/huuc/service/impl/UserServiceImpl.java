@@ -18,6 +18,7 @@ import com.huuc.service.detail.data.UserInfoData;
 import com.huuc.vo.AllPostVO;
 import com.huuc.vo.DownLogVO;
 import com.huuc.vo.IdentityUpdateVO;
+import com.huuc.vo.MyPostVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +70,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<AllPostVO> getAllPost() {
         return baseMapper.getAllPost(BaseContext.getCurrentId());
+    }
+
+    @Override
+    public PageResult<MyPostVO> getMyPostPage(MyPostPageDTO myPostPageDTO) {
+        //1.设置分页
+        PageHelper.startPage(myPostPageDTO.getPageNumber(), myPostPageDTO.getPageSize());
+        //2.执行查询
+        Page<MyPostVO> myPostPage = (Page<MyPostVO>) baseMapper.getMyPostPage(myPostPageDTO.getStatus(), BaseContext.getCurrentId());
+        //3.封装结果
+        return new PageResult<>(myPostPage.getTotal(), myPostPage.getResult());
+    }
+
+    @Override
+    public PageResult<MyPostVO> getMyLiked(MyPostPageDTO myPostPageDTO) {
+        //1.设置分页
+        PageHelper.startPage(myPostPageDTO.getPageNumber(), myPostPageDTO.getPageSize());
+        //2.执行查询
+        Page<MyPostVO> myLikedPage = (Page<MyPostVO>) baseMapper.getMyLiked(BaseContext.getCurrentId());
+        //3.封装结果
+        return new PageResult<>(myLikedPage.getTotal(), myLikedPage.getResult());
+    }
+
+    @Override
+    public PageResult<MyPostVO> getMyFavored(MyPostPageDTO myPostPageDTO) {
+        //1.设置分页
+        PageHelper.startPage(myPostPageDTO.getPageNumber(), myPostPageDTO.getPageSize());
+        //2.执行查询
+        Page<MyPostVO> myLikedPage = (Page<MyPostVO>) baseMapper.getMyFavored(BaseContext.getCurrentId());
+        //3.封装结果
+        return new PageResult<>(myLikedPage.getTotal(), myLikedPage.getResult());
+    }
+
+    @Override
+    public PageResult<MyPostVO> getMyComment(MyPostPageDTO myPostPageDTO) {
+        //1.设置分页
+        PageHelper.startPage(myPostPageDTO.getPageNumber(), myPostPageDTO.getPageSize());
+        //2.执行查询
+        Page<MyPostVO> myCommentPage = (Page<MyPostVO>) baseMapper.getMyComment(BaseContext.getCurrentId());
+        //3.封装结果
+        return new PageResult<>(myCommentPage.getTotal(), myCommentPage.getResult());
     }
 
     @Override
